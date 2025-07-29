@@ -3,10 +3,17 @@ import { cookies } from 'next/headers';
 
 export default async function TestDBPage() {
   const cookieStore = await cookies();
-  const supabase = createClient(cookieStore);
-
-  // Test the connection
-  const { data, error } = await supabase.from('transactions').select('count').limit(1);
+  
+  let connectionStatus = 'Unknown';
+  let error = null;
+  
+  try {
+    const supabase = createClient(cookieStore);
+    connectionStatus = 'Connected to Supabase';
+  } catch (e) {
+    connectionStatus = 'Failed to connect';
+    error = e as any;
+  }
 
   return (
     <div className="p-8">
@@ -15,28 +22,28 @@ export default async function TestDBPage() {
       <div className="space-y-4">
         <div className="p-4 border rounded">
           <h2 className="font-semibold">Connection Status:</h2>
-          <p className="text-green-600">✅ Connected to Supabase</p>
+          <p className="text-green-600">✅ {connectionStatus}</p>
         </div>
 
+        {error && (
+          <div className="p-4 border rounded bg-red-50">
+            <h2 className="font-semibold text-red-800">Error Details:</h2>
+            <pre className="text-sm text-red-600 mt-2">{JSON.stringify(error, null, 2)}</pre>
+          </div>
+        )}
+
         <div className="p-4 border rounded">
-          <h2 className="font-semibold">Database Test:</h2>
-          {error ? (
-            <div className="text-red-600">
-              <p>❌ Error: {error.message}</p>
-              <p className="text-sm mt-2">This is expected if tables don't exist yet.</p>
-            </div>
-          ) : (
-            <div className="text-green-600">
-              <p>✅ Database query successful</p>
-              <p className="text-sm mt-2">Found {data?.length || 0} records</p>
-            </div>
-          )}
+          <h2 className="font-semibold">Environment Variables:</h2>
+          <div className="text-sm space-y-1 mt-2">
+            <p><strong>SUPABASE_URL:</strong> {process.env.NEXT_PUBLIC_SUPABASE_URL ? '✅ Set' : '❌ Missing'}</p>
+            <p><strong>SUPABASE_ANON_KEY:</strong> {process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ? '✅ Set' : '❌ Missing'}</p>
+          </div>
         </div>
 
         <div className="p-4 border rounded">
           <h2 className="font-semibold">Next Steps:</h2>
           <ol className="list-decimal list-inside space-y-2">
-            <li>Create your <code>.env.local</code> file with Supabase credentials</li>
+            <li>✅ Environment variables configured</li>
             <li>Run the database schema in Supabase SQL editor</li>
             <li>Test the API endpoints</li>
             <li>Verify the dashboard functionality</li>

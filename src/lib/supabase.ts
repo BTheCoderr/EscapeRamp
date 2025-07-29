@@ -35,14 +35,4 @@ export const TABLES = {
   TRANSACTION_CHANGES: 'transaction_changes',
   AUDIT_EVENTS: 'audit_events',
   DATA_SNAPSHOTS: 'data_snapshots',
-} as const;
-
-// Database table names
-export const TABLES = {
-  USERS: 'users',
-  MIGRATIONS: 'migrations',
-  FILES: 'files',
-  INTAKE_RESPONSES: 'intake_responses',
-  AI_ANALYSES: 'ai_analyses',
-  MIGRATION_PROGRESS: 'migration_progress',
 } as const; 

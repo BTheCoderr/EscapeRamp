@@ -69,7 +69,7 @@ type NavigationItem = {
 
 const navigationItems: NavigationItem[] = [
   { title: "Dashboard", icon: LayoutDashboard, id: "dashboard" },
-  { title: "My Migration", icon: Migration, id: "migration" },
+  { title: "My Migration", icon: Migration, id: "migration" }, // Will be handled in renderContent
   { title: "Upload Files", icon: Upload, id: "upload" },
   { title: "Connect Cloud App", icon: Cloud, id: "connect" },
   { title: "AI Assistant", icon: Bot, id: "assistant", badge: "Smart" },
@@ -101,7 +101,7 @@ function AppSidebar({ activeItem, setActiveItem }: { activeItem: string; setActi
                 <SidebarMenuItem key={item.id}>
                   <SidebarMenuButton
                     onClick={() => setActiveItem(item.id)}
-                    isActive={activeItem === item.id}
+                    isActive={activeItem === item.id || (item.id === "migration" && activeItem === "dashboard")}
                     className="w-full justify-between"
                   >
                     <div className="flex items-center gap-2">
@@ -727,10 +727,192 @@ function UploadFilesView() {
 }
 
 function ConnectCloudAppView() {
+  const [selectedApp, setSelectedApp] = useState<string>("")
+  const [connectionStatus, setConnectionStatus] = useState<Record<string, string>>({})
+
+  const cloudApps = [
+    {
+      id: "quickbooks-online",
+      name: "QuickBooks Online",
+      description: "Connect to your existing QuickBooks Online account",
+      icon: "💼",
+      status: "connected",
+      lastSync: "2 hours ago"
+    },
+    {
+      id: "xero",
+      name: "Xero",
+      description: "Popular cloud accounting for small businesses",
+      icon: "📊",
+      status: "available",
+      lastSync: null
+    },
+    {
+      id: "freshbooks",
+      name: "FreshBooks",
+      description: "Simple invoicing and time tracking",
+      icon: "⏰",
+      status: "available",
+      lastSync: null
+    },
+    {
+      id: "wave",
+      name: "Wave",
+      description: "Free accounting software for small businesses",
+      icon: "🌊",
+      status: "available",
+      lastSync: null
+    },
+    {
+      id: "sage-intacct",
+      name: "Sage Intacct",
+      description: "Advanced cloud ERP for growing companies",
+      icon: "📈",
+      status: "available",
+      lastSync: null
+    }
+  ]
+
+  const handleConnect = (appId: string) => {
+    setConnectionStatus(prev => ({ ...prev, [appId]: "connecting" }))
+    // Simulate connection process
+    setTimeout(() => {
+      setConnectionStatus(prev => ({ ...prev, [appId]: "connected" }))
+    }, 2000)
+  }
+
   return (
-    <div>
-      <h1>Connect Cloud App View</h1>
-      {/* Placeholder for Connect Cloud App View */}
+    <div className="space-y-6">
+      {/* Header */}
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-3xl font-bold">Connect Cloud App</h1>
+          <p className="text-muted-foreground mt-2">
+            Choose your destination cloud accounting platform. We&apos;ll handle the migration seamlessly.
+          </p>
+        </div>
+        <Button variant="outline" className="flex items-center gap-2">
+          <Cloud className="w-4 h-4" />
+          View All Integrations
+        </Button>
+      </div>
+
+      {/* Connection Status */}
+      <Card className="bg-blue-50 border-blue-200">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2 text-blue-800">
+            <CheckCircle className="w-5 h-5" />
+            Current Connection
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center text-2xl">
+              💼
+            </div>
+            <div className="flex-1">
+              <h3 className="font-semibold">QuickBooks Online</h3>
+              <p className="text-sm text-muted-foreground">Connected • Last sync: 2 hours ago</p>
+            </div>
+            <Badge className="bg-green-100 text-green-700">Connected</Badge>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Available Apps Grid */}
+      <div>
+        <h2 className="text-xl font-semibold mb-4">Available Cloud Platforms</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {cloudApps.map((app) => (
+            <Card key={app.id} className="hover:shadow-md transition-shadow">
+              <CardHeader>
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center text-xl">
+                    {app.icon}
+                  </div>
+                  <div>
+                    <CardTitle className="text-lg">{app.name}</CardTitle>
+                    <CardDescription>{app.description}</CardDescription>
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-muted-foreground">Status:</span>
+                    <Badge 
+                      variant={app.status === "connected" ? "default" : "secondary"}
+                      className={app.status === "connected" ? "bg-green-100 text-green-700" : ""}
+                    >
+                      {app.status === "connected" ? "Connected" : "Available"}
+                    </Badge>
+                  </div>
+                  
+                  {app.lastSync && (
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm text-muted-foreground">Last Sync:</span>
+                      <span className="text-sm">{app.lastSync}</span>
+                    </div>
+                  )}
+                  
+                  <Button 
+                    className="w-full" 
+                    variant={app.status === "connected" ? "outline" : "default"}
+                    disabled={app.status === "connected" || connectionStatus[app.id] === "connecting"}
+                    onClick={() => handleConnect(app.id)}
+                  >
+                    {connectionStatus[app.id] === "connecting" ? (
+                      <>
+                        <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2" />
+                        Connecting...
+                      </>
+                    ) : app.status === "connected" ? (
+                      "Connected"
+                    ) : (
+                      "Connect"
+                    )}
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </div>
+
+      {/* Migration Benefits */}
+      <Card className="bg-gradient-to-r from-green-50 to-blue-50 border-green-200">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2 text-green-800">
+            <Zap className="w-5 h-5" />
+            Why Migrate to Cloud?
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="text-center">
+              <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mx-auto mb-3">
+                <Shield className="w-6 h-6 text-green-600" />
+              </div>
+              <h3 className="font-semibold mb-1">Automatic Backups</h3>
+              <p className="text-sm text-muted-foreground">Your data is automatically backed up and secure</p>
+            </div>
+            <div className="text-center">
+              <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mx-auto mb-3">
+                <Users className="w-6 h-6 text-blue-600" />
+              </div>
+              <h3 className="font-semibold mb-1">Team Collaboration</h3>
+              <p className="text-sm text-muted-foreground">Multiple users can access and work simultaneously</p>
+            </div>
+            <div className="text-center">
+              <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mx-auto mb-3">
+                <TrendingUp className="w-6 h-6 text-purple-600" />
+              </div>
+              <h3 className="font-semibold mb-1">Real-time Updates</h3>
+              <p className="text-sm text-muted-foreground">Always have the latest features and security updates</p>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   )
 }
@@ -740,10 +922,248 @@ function AIAssistantView() {
 }
 
 function SettingsView() {
+  const [notifications, setNotifications] = useState({
+    email: true,
+    push: false,
+    sms: false,
+    weeklyReports: true,
+    migrationUpdates: true
+  })
+
+  const [preferences, setPreferences] = useState({
+    theme: "light",
+    language: "en",
+    timezone: "America/New_York",
+    currency: "USD"
+  })
+
+  const [security, setSecurity] = useState({
+    twoFactor: false,
+    sessionTimeout: "24h",
+    loginNotifications: true
+  })
+
   return (
-    <div>
-      <h1>Settings View</h1>
-      {/* Placeholder for Settings View */}
+    <div className="space-y-6">
+      {/* Header */}
+      <div>
+        <h1 className="text-3xl font-bold">Settings</h1>
+        <p className="text-muted-foreground mt-2">
+          Manage your account preferences, notifications, and security settings.
+        </p>
+      </div>
+
+      {/* Account Information */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Avatar className="w-5 h-5" />
+            Account Information
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="flex items-center gap-4">
+            <Avatar className="w-16 h-16">
+              <AvatarImage src="/placeholder.svg?height=64&width=64" />
+              <AvatarFallback>JD</AvatarFallback>
+            </Avatar>
+            <div className="flex-1">
+              <h3 className="font-semibold">John Doe</h3>
+              <p className="text-muted-foreground">john@company.com</p>
+              <p className="text-sm text-muted-foreground">Member since January 2024</p>
+            </div>
+            <Button variant="outline">Edit Profile</Button>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Notifications */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Bell className="w-5 h-5" />
+            Notifications
+          </CardTitle>
+          <CardDescription>
+            Choose how you want to receive updates about your migration.
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="space-y-3">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="font-medium">Email Notifications</p>
+                <p className="text-sm text-muted-foreground">Receive updates via email</p>
+              </div>
+              <Switch 
+                checked={notifications.email} 
+                onCheckedChange={(checked) => setNotifications(prev => ({ ...prev, email: checked }))}
+              />
+            </div>
+            
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="font-medium">Push Notifications</p>
+                <p className="text-sm text-muted-foreground">Get real-time updates in your browser</p>
+              </div>
+              <Switch 
+                checked={notifications.push} 
+                onCheckedChange={(checked) => setNotifications(prev => ({ ...prev, push: checked }))}
+              />
+            </div>
+            
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="font-medium">SMS Notifications</p>
+                <p className="text-sm text-muted-foreground">Receive text messages for urgent updates</p>
+              </div>
+              <Switch 
+                checked={notifications.sms} 
+                onCheckedChange={(checked) => setNotifications(prev => ({ ...prev, sms: checked }))}
+              />
+            </div>
+            
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="font-medium">Weekly Reports</p>
+                <p className="text-sm text-muted-foreground">Get a summary of your migration progress</p>
+              </div>
+              <Switch 
+                checked={notifications.weeklyReports} 
+                onCheckedChange={(checked) => setNotifications(prev => ({ ...prev, weeklyReports: checked }))}
+              />
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Preferences */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Palette className="w-5 h-5" />
+            Preferences
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <label className="text-sm font-medium">Theme</label>
+              <Select value={preferences.theme} onValueChange={(value) => setPreferences(prev => ({ ...prev, theme: value }))}>
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="light">Light</SelectItem>
+                  <SelectItem value="dark">Dark</SelectItem>
+                  <SelectItem value="auto">Auto</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            
+            <div className="space-y-2">
+              <label className="text-sm font-medium">Language</label>
+              <Select value={preferences.language} onValueChange={(value) => setPreferences(prev => ({ ...prev, language: value }))}>
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="en">English</SelectItem>
+                  <SelectItem value="es">Spanish</SelectItem>
+                  <SelectItem value="fr">French</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            
+            <div className="space-y-2">
+              <label className="text-sm font-medium">Timezone</label>
+              <Select value={preferences.timezone} onValueChange={(value) => setPreferences(prev => ({ ...prev, timezone: value }))}>
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="America/New_York">Eastern Time</SelectItem>
+                  <SelectItem value="America/Chicago">Central Time</SelectItem>
+                  <SelectItem value="America/Denver">Mountain Time</SelectItem>
+                  <SelectItem value="America/Los_Angeles">Pacific Time</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            
+            <div className="space-y-2">
+              <label className="text-sm font-medium">Currency</label>
+              <Select value={preferences.currency} onValueChange={(value) => setPreferences(prev => ({ ...prev, currency: value }))}>
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="USD">USD ($)</SelectItem>
+                  <SelectItem value="EUR">EUR (€)</SelectItem>
+                  <SelectItem value="GBP">GBP (£)</SelectItem>
+                  <SelectItem value="CAD">CAD (C$)</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Security */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Shield className="w-5 h-5" />
+            Security
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="space-y-3">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="font-medium">Two-Factor Authentication</p>
+                <p className="text-sm text-muted-foreground">Add an extra layer of security to your account</p>
+              </div>
+              <Switch 
+                checked={security.twoFactor} 
+                onCheckedChange={(checked) => setSecurity(prev => ({ ...prev, twoFactor: checked }))}
+              />
+            </div>
+            
+            <div className="space-y-2">
+              <label className="text-sm font-medium">Session Timeout</label>
+              <Select value={security.sessionTimeout} onValueChange={(value) => setSecurity(prev => ({ ...prev, sessionTimeout: value }))}>
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="1h">1 hour</SelectItem>
+                  <SelectItem value="8h">8 hours</SelectItem>
+                  <SelectItem value="24h">24 hours</SelectItem>
+                  <SelectItem value="7d">7 days</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="font-medium">Login Notifications</p>
+                <p className="text-sm text-muted-foreground">Get notified when someone logs into your account</p>
+              </div>
+              <Switch 
+                checked={security.loginNotifications} 
+                onCheckedChange={(checked) => setSecurity(prev => ({ ...prev, loginNotifications: checked }))}
+              />
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Actions */}
+      <div className="flex gap-3">
+        <Button>Save Changes</Button>
+        <Button variant="outline">Reset to Defaults</Button>
+        <Button variant="destructive">Delete Account</Button>
+      </div>
     </div>
   )
 }

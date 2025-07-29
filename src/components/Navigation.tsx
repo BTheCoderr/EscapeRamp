@@ -100,7 +100,7 @@ export function Navigation({ activeTab, onTabChange }: NavigationProps) {
           </div>
 
           {/* Current Migration Status */}
-          {currentMigration && (
+          {/* {currentMigration && (
             <div className="flex items-center">
               <div className="text-right">
                 <p className="text-sm font-medium text-gray-900">
@@ -111,7 +111,7 @@ export function Navigation({ activeTab, onTabChange }: NavigationProps) {
                 </p>
               </div>
             </div>
-          )}
+          )} */}
         </div>
       </div>
     </nav>

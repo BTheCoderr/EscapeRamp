@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -36,6 +36,15 @@ export function AIAssistant() {
   const [intakeData, setIntakeData] = useState<Partial<IntakeData>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [userInput, setUserInput] = useState('');
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages, isSubmitting]);
 
   const softwareOptions = [
     'QuickBooks Desktop Pro',
@@ -170,11 +179,11 @@ export function AIAssistant() {
       </Card>
 
       {/* Chat Messages */}
-      <Card className="mb-6 h-96 overflow-hidden">
+      <Card className="mb-6 h-[500px] overflow-hidden">
         <CardContent className="p-0">
           <div className="h-full flex flex-col">
             {/* Messages Area */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-4">
+            <div className="flex-1 overflow-y-auto p-4 space-y-4 pb-4">
               {messages.map((message) => (
                 <div
                   key={message.id}
@@ -205,6 +214,7 @@ export function AIAssistant() {
                   </div>
                 </div>
               )}
+              <div ref={messagesEndRef} />
             </div>
 
             {/* Input Area */}

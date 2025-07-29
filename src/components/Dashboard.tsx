@@ -57,6 +57,7 @@ import {
   LineChart,
 } from "lucide-react"
 import { AIAssistant } from "./AIAssistant"
+import { DocumentUpload } from "./DocumentUpload"
 
 type NavigationItem = {
   title: string
@@ -895,12 +896,7 @@ function PricingView() {
 }
 
 function UploadFilesView() {
-  return (
-    <div>
-      <h1>Upload Files View</h1>
-      {/* Placeholder for Upload Files View */}
-    </div>
-  )
+  return <DocumentUpload />
 }
 
 function ConnectCloudAppView() {

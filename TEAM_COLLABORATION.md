@@ -5,8 +5,8 @@
 | Team Member | Branch Name | Role | Focus Area |
 |-------------|-------------|------|------------|
 | **Baheem** | `baheem` | Team Lead | Project Management & Architecture |
-| **Thomas** | `thomas` | Frontend Developer | UI/UX & Dashboard Components |
-| **Dante** | `dante` | Backend Developer | API Development & Database |
+| **Thomas** | `thomas` | Backend Developer | API Development & Database |
+| **Dante** | `dante` | Frontend Developer | UI/UX & Dashboard Components |
 | **Pio** | `pio` | Full Stack Developer | Integration & Testing |
 | **Sean** | `sean` | Frontend Developer | Analytics & Reporting |
 | **Adrian** | `adrian` | Backend Developer | AI Integration & Services |
@@ -155,17 +155,17 @@ Closes #issue-number
 - **Code Reviews**: Final approval on all PRs
 - **Deployment**: Production releases
 
-### **Thomas (Frontend - UI/UX)**
-- **Dashboard Components**: Main dashboard layout
-- **User Experience**: Navigation and interactions
-- **Responsive Design**: Mobile and tablet optimization
-- **Component Library**: Reusable UI components
-
-### **Dante (Backend - API/Database)**
+### **Thomas (Backend - API/Database)**
 - **API Development**: RESTful endpoints
 - **Database Design**: Schema and migrations
 - **Authentication**: User management and security
 - **Performance**: Query optimization
+
+### **Dante (Frontend - UI/UX)**
+- **Dashboard Components**: Main dashboard layout
+- **User Experience**: Navigation and interactions
+- **Responsive Design**: Mobile and tablet optimization
+- **Component Library**: Reusable UI components
 
 ### **Pio (Full Stack - Integration)**
 - **Integration**: Connect frontend and backend

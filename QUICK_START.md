@@ -70,15 +70,15 @@ git push origin {your-name}
 - Code reviews & final approvals
 - Sprint planning & task assignment
 
-### **Thomas (Frontend - UI/UX)**
-- Dashboard components & layout
-- User experience & navigation
-- Responsive design & mobile optimization
-
-### **Dante (Backend - API/Database)**
+### **Thomas (Backend - API/Database)**
 - RESTful API endpoints
 - Database schema & migrations
 - Authentication & security
+
+### **Dante (Frontend - UI/UX)**
+- Dashboard components & layout
+- User experience & navigation
+- Responsive design & mobile optimization
 
 ### **Pio (Full Stack - Integration)**
 - Frontend-backend integration

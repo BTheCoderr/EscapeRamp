@@ -199,11 +199,25 @@ function DashboardView() {
                 </div>
               </div>
               <div className="flex gap-2">
-                <Button size="sm" variant="outline">
+                <Button 
+                  size="sm" 
+                  variant="outline"
+                  onClick={() => {
+                    // Open chat interface or redirect to AI Assistant
+                    window.open('/?tab=assistant', '_blank');
+                  }}
+                >
                   <MessageSquare className="w-4 h-4 mr-1" />
                   Chat
                 </Button>
-                <Button size="sm" variant="outline">
+                <Button 
+                  size="sm" 
+                  variant="outline"
+                  onClick={() => {
+                    // Open phone call or schedule call
+                    window.open('tel:+1-800-ESCAPE-RAMP', '_blank');
+                  }}
+                >
                   <Phone className="w-4 h-4 mr-1" />
                   Call
                 </Button>
@@ -397,7 +411,34 @@ function AnalyticsView() {
               <SelectItem value="1y">Last year</SelectItem>
             </SelectContent>
           </Select>
-          <Button>
+          <Button
+            onClick={() => {
+              // Generate and download report
+              const reportData = {
+                timeRange,
+                reportType,
+                generatedAt: new Date().toISOString(),
+                data: {
+                  revenue: "$45,230",
+                  expenses: "$12,450",
+                  profit: "$32,780",
+                  growth: "23%"
+                }
+              };
+              
+              const blob = new Blob([JSON.stringify(reportData, null, 2)], { type: 'application/json' });
+              const url = URL.createObjectURL(blob);
+              const a = document.createElement('a');
+              a.href = url;
+              a.download = `escape-ramp-report-${timeRange}-${new Date().toISOString().split('T')[0]}.json`;
+              document.body.appendChild(a);
+              a.click();
+              document.body.removeChild(a);
+              URL.revokeObjectURL(url);
+              
+              alert('Report exported successfully!');
+            }}
+          >
             <Download className="w-4 h-4 mr-2" />
             Export
           </Button>
@@ -859,7 +900,14 @@ function ConnectCloudAppView() {
                     className="w-full" 
                     variant={app.status === "connected" ? "outline" : "default"}
                     disabled={app.status === "connected" || connectionStatus[app.id] === "connecting"}
-                    onClick={() => handleConnect(app.id)}
+                    onClick={() => {
+                      if (app.status === "connected") {
+                        // Show connection details
+                        alert(`${app.name} is already connected. Last sync: ${app.lastSync}`);
+                      } else {
+                        handleConnect(app.id);
+                      }
+                    }}
                   >
                     {connectionStatus[app.id] === "connecting" ? (
                       <>
@@ -1160,9 +1208,57 @@ function SettingsView() {
 
       {/* Actions */}
       <div className="flex gap-3">
-        <Button>Save Changes</Button>
-        <Button variant="outline">Reset to Defaults</Button>
-        <Button variant="destructive">Delete Account</Button>
+        <Button 
+          onClick={() => {
+            // Save settings to localStorage or API
+            localStorage.setItem('escapeRampSettings', JSON.stringify({
+              notifications,
+              preferences,
+              security
+            }));
+            alert('Settings saved successfully!');
+          }}
+        >
+          Save Changes
+        </Button>
+        <Button 
+          variant="outline"
+          onClick={() => {
+            // Reset to default settings
+            setNotifications({
+              email: true,
+              push: false,
+              sms: false,
+              weeklyReports: true,
+              migrationUpdates: true
+            });
+            setPreferences({
+              theme: "light",
+              language: "en",
+              timezone: "America/New_York",
+              currency: "USD"
+            });
+            setSecurity({
+              twoFactor: false,
+              sessionTimeout: "24h",
+              loginNotifications: true
+            });
+            alert('Settings reset to defaults!');
+          }}
+        >
+          Reset to Defaults
+        </Button>
+        <Button 
+          variant="destructive"
+          onClick={() => {
+            if (confirm('Are you sure you want to delete your account? This action cannot be undone.')) {
+              // Handle account deletion
+              alert('Account deletion requested. Please contact support for assistance.');
+            }
+          }}
+        >
+          Delete Account
+        </Button>
       </div>
     </div>
   )
@@ -1208,7 +1304,42 @@ export default function Dashboard() {
               <Button variant="ghost" size="sm">
                 <Bell className="w-4 h-4" />
               </Button>
-              <Button variant="outline" size="sm">
+              <Button 
+                variant="outline" 
+                size="sm"
+                onClick={() => {
+                  // Open help modal or redirect to support
+                  const helpOptions = [
+                    'Chat with AI Assistant',
+                    'Contact Migration Specialist',
+                    'View Documentation',
+                    'Schedule a Call'
+                  ];
+                  
+                  const choice = prompt(`How can we help you?\n\n${helpOptions.map((opt, i) => `${i + 1}. ${opt}`).join('\n')}\n\nEnter a number (1-4):`);
+                  
+                  switch(choice) {
+                    case '1':
+                      // Navigate to AI Assistant
+                      window.location.href = '/?tab=assistant';
+                      break;
+                    case '2':
+                      // Show specialist contact info
+                      alert('Contact Sarah Mitchell:\nEmail: sarah@escaperamp.com\nPhone: +1-800-ESCAPE-RAMP');
+                      break;
+                    case '3':
+                      // Open documentation
+                      window.open('https://docs.escaperamp.com', '_blank');
+                      break;
+                    case '4':
+                      // Schedule call
+                      window.open('https://calendly.com/escaperamp/consultation', '_blank');
+                      break;
+                    default:
+                      alert('Please select a valid option.');
+                  }
+                }}
+              >
                 Need Help?
               </Button>
             </div>

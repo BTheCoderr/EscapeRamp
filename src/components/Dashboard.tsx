@@ -56,6 +56,7 @@ import {
   PieChart,
   LineChart,
 } from "lucide-react"
+import { AIAssistant } from "./AIAssistant"
 
 type NavigationItem = {
   title: string
@@ -912,12 +913,7 @@ function ConnectCloudAppView() {
 }
 
 function AIAssistantView() {
-  return (
-    <div>
-      <h1>AI Assistant View</h1>
-      {/* Placeholder for AI Assistant View */}
-    </div>
-  )
+  return <AIAssistant />
 }
 
 function SettingsView() {

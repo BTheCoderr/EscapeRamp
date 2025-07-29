@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+// import { useState } from 'react';
 import { useAppStore } from '@/lib/store';
 import { 
   FileText, 
@@ -19,7 +19,7 @@ interface NavigationProps {
 }
 
 export function Navigation({ activeTab, onTabChange }: NavigationProps) {
-  const { currentMigration } = useAppStore();
+  // const { currentMigration } = useAppStore();
 
   const tabs = [
     {

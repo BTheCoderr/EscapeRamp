@@ -1,4 +1,4 @@
-import { IntakeResponse, AIAnalysis } from './types';
+import { IntakeResponse } from './types';
 
 export class AIService {
   private apiKey: string;

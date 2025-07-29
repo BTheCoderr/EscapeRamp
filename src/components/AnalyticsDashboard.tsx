@@ -47,7 +47,7 @@ export function AnalyticsDashboard() {
   const [trends, setTrends] = useState<MigrationTrend[]>([]);
   const [selectedTimeframe, setSelectedTimeframe] = useState('30d');
   const [loading, setLoading] = useState(true);
-  const { currentMigration } = useAppStore();
+  // const { currentMigration } = useAppStore();
 
   useEffect(() => {
     fetchAnalytics();
@@ -94,7 +94,7 @@ export function AnalyticsDashboard() {
     ]);
   };
 
-  const getMetricCard = (title: string, value: string | number, icon: any, trend?: number, color: string = 'blue') => {
+  const getMetricCard = (title: string, value: string | number, icon: React.ComponentType<{ className?: string }>, trend?: number, color: string = 'blue') => {
     const Icon = icon;
     return (
       <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">

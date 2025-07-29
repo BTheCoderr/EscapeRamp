@@ -48,7 +48,7 @@ export interface AIAnalysis {
   migration_id: string;
   analysis_type: 'intake_summary' | 'file_analysis' | 'migration_plan';
   content: string;
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
   created_at: string;
 }
 

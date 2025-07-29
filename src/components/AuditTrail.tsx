@@ -30,7 +30,7 @@ interface AuditEvent {
   details: string;
   category: 'migration' | 'file' | 'analysis' | 'user' | 'system';
   severity: 'low' | 'medium' | 'high' | 'critical';
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
 }
 
 interface AuditFilter {
@@ -53,7 +53,7 @@ export function AuditTrail() {
   });
   const [loading, setLoading] = useState(true);
   const [selectedEvent, setSelectedEvent] = useState<AuditEvent | null>(null);
-  const { currentMigration } = useAppStore();
+  // const { currentMigration } = useAppStore();
 
   useEffect(() => {
     fetchAuditTrail();

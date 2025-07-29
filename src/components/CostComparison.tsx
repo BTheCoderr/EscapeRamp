@@ -284,7 +284,7 @@ export function CostComparison() {
                       type="radio"
                       value={option.value}
                       checked={timeframe === option.value}
-                      onChange={(e) => setTimeframe(e.target.value as any)}
+                      onChange={(e) => setTimeframe(e.target.value as 'monthly' | 'annual' | '3year')}
                       className="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
                     />
                     <Icon className="w-4 h-4 text-gray-400" />
@@ -334,7 +334,7 @@ export function CostComparison() {
                 const totalCost = calculateTotalCost(plan);
                 const quickbooksPlan = pricingPlans.find(p => p.name === 'QuickBooks Online');
                 const savings = quickbooksPlan ? getSavings(quickbooksPlan, plan) : 0;
-                const roi = getROI(savings, plan.migrationCost);
+                // const roi = getROI(savings, plan.migrationCost);
 
                 return (
                   <tr key={plan.name} className="hover:bg-gray-50">

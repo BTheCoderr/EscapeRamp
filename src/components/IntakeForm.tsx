@@ -57,7 +57,7 @@ const dataRequirements = [
 export function IntakeForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-  const { setIntakeResponse, setCurrentMigration } = useAppStore();
+  const { setIntakeResponse } = useAppStore();
 
   const {
     register,

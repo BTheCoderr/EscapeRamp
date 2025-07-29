@@ -30,16 +30,16 @@ interface MigrationWithProgress {
   urgency: string;
   created_at: string;
   progress: MigrationProgress;
-  intake_responses?: any[];
-  files?: any[];
-  ai_analyses?: any[];
+  intake_responses?: unknown[];
+  files?: unknown[];
+  ai_analyses?: unknown[];
 }
 
 export function ProgressDashboard() {
   const [migrations, setMigrations] = useState<MigrationWithProgress[]>([]);
   const [loading, setLoading] = useState(true);
   const [expandedMigration, setExpandedMigration] = useState<string | null>(null);
-  const { currentMigration } = useAppStore();
+  // const { currentMigration } = useAppStore();
 
   useEffect(() => {
     fetchProgress();
@@ -244,7 +244,7 @@ export function ProgressDashboard() {
                       <h4 className="font-semibold text-gray-900 mb-3">Uploaded Files</h4>
                       <div className="bg-white p-4 rounded-lg border">
                         <div className="space-y-2">
-                          {migration.files.map((file: any) => (
+                          {migration.files.map((file: unknown) => (
                             <div key={file.id} className="flex items-center justify-between text-sm">
                               <div className="flex items-center space-x-2">
                                 <FileText className="w-4 h-4 text-gray-400" />
@@ -263,7 +263,7 @@ export function ProgressDashboard() {
                     <div className="md:col-span-2">
                       <h4 className="font-semibold text-gray-900 mb-3">AI Analysis</h4>
                       <div className="space-y-3">
-                        {migration.ai_analyses.map((analysis: any) => (
+                        {migration.ai_analyses.map((analysis: unknown) => (
                           <div key={analysis.id} className="bg-white p-4 rounded-lg border">
                             <div className="flex items-center space-x-2 mb-2">
                               <Brain className="w-4 h-4 text-blue-500" />

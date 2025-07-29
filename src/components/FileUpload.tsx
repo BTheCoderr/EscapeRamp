@@ -44,7 +44,7 @@ export function FileUpload() {
   };
 
   const uploadFile = async (file: File) => {
-    const fileId = Math.random().toString(36).substr(2, 9);
+    // const fileId = Math.random().toString(36).substr(2, 9);
     
     try {
       // Validate file

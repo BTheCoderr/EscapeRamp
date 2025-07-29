@@ -59,7 +59,7 @@ import {
 
 type NavigationItem = {
   title: string
-  icon: React.ComponentType<any>
+  icon: React.ComponentType<{ className?: string }>
   id: string
   badge?: string
 }
@@ -160,7 +160,7 @@ function DashboardView() {
               Welcome to Escape Ramp
             </CardTitle>
             <CardDescription className="text-green-700">
-              Your migration from QuickBooks Desktop to the cloud is in progress. Unlike QB's cluttered interface,
+              Your migration from QuickBooks Desktop to the cloud is in progress. Unlike QB&apos;s cluttered interface,
               everything here is designed for simplicity and clarity.
             </CardDescription>
           </CardHeader>
@@ -222,7 +222,7 @@ function DashboardView() {
               <Badge className="bg-blue-100 text-blue-700">Live Updates</Badge>
             </CardTitle>
             <CardDescription>
-              Unlike QuickBooks' limited progress tracking, see exactly where your data is in real-time
+              Unlike QuickBooks&apos; limited progress tracking, see exactly where your data is in real-time
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
@@ -347,7 +347,7 @@ function DashboardView() {
             <Palette className="w-5 h-5 text-purple-600" />
             Customize Your Dashboard
           </CardTitle>
-          <CardDescription>Unlike QuickBooks' rigid layout, personalize your experience</CardDescription>
+          <CardDescription>Unlike QuickBooks&apos; rigid layout, personalize your experience</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -379,7 +379,7 @@ function AnalyticsView() {
         <div>
           <h1 className="text-2xl font-bold">Analytics & Reports</h1>
           <p className="text-muted-foreground">
-            Rich visualizations and insights - far beyond QuickBooks' basic reports
+            Rich visualizations and insights - far beyond QuickBooks&apos; basic reports
           </p>
         </div>
         <div className="flex gap-2">
@@ -481,7 +481,7 @@ function AnalyticsView() {
             <Filter className="w-5 h-5 text-blue-600" />
             Advanced Filters & Segmentation
           </CardTitle>
-          <CardDescription>Powerful filtering that actually works - unlike QuickBooks' clunky system</CardDescription>
+          <CardDescription>Powerful filtering that actually works - unlike QuickBooks&apos; clunky system</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
@@ -525,7 +525,7 @@ function AnalyticsView() {
         <CardHeader>
           <CardTitle>Custom Report Builder</CardTitle>
           <CardDescription>
-            Build exactly the reports you need - no more being stuck with QB's limited options
+            Build exactly the reports you need - no more being stuck with QB&apos;s limited options
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -795,7 +795,7 @@ function PricingView() {
       <Card>
         <CardHeader>
           <CardTitle>Cost Comparison: Escape Ramp vs. QuickBooks</CardTitle>
-          <CardDescription>See how much you'll save by switching from QuickBooks Desktop</CardDescription>
+          <CardDescription>See how much you&apos;ll save by switching from QuickBooks Desktop</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

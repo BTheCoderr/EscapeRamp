@@ -17,7 +17,7 @@ interface OnboardingStep {
   id: string;
   title: string;
   description: string;
-  icon: any;
+  icon: React.ComponentType<{ className?: string }>;
   questions: OnboardingQuestion[];
 }
 
@@ -194,7 +194,7 @@ export function OnboardingWizard() {
   const isFirstStep = currentStep === 0;
   const isLastStep = currentStep === onboardingSteps.length - 1;
 
-  const handleAnswer = (questionId: string, value: any) => {
+  const handleAnswer = (questionId: string, value: string | string[]) => {
     setAnswers(prev => ({
       ...prev,
       [questionId]: value

@@ -5,7 +5,7 @@ import Dashboard from '@/components/Dashboard';
 import { OnboardingWizard } from '@/components/OnboardingWizard';
 
 export default function Home() {
-  const [showOnboarding, setShowOnboarding] = useState(false);
+  const [showOnboarding] = useState(false);
 
   // Show onboarding wizard first, then main dashboard
   if (showOnboarding) {

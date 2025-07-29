@@ -186,7 +186,7 @@ const onboardingSteps: OnboardingStep[] = [
 
 export function OnboardingWizard() {
   const [currentStep, setCurrentStep] = useState(0);
-  const [answers, setAnswers] = useState<Record<string, any>>({});
+  const [answers, setAnswers] = useState<Record<string, string | string[]>>({});
   const [showHelp, setShowHelp] = useState<string | null>(null);
   const { setUser } = useAppStore();
 
@@ -234,12 +234,8 @@ export function OnboardingWizard() {
         email: 'demo@escaperamp.com',
         name: 'Demo User',
         company_name: 'Demo Company',
-        onboarding_data: answers,
-        experience_level: answers.experience_level,
-        business_size: answers.business_size,
-        migration_goals: answers.primary_reason,
-        timeline: answers.timeline,
         created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString(),
       };
 
       setUser(userProfile);
@@ -267,7 +263,7 @@ export function OnboardingWizard() {
             Welcome to Escape Ramp
           </h1>
           <p className="text-gray-600">
-            Let's create your personalized migration plan
+            Let&apos;s create your personalized migration plan
           </p>
         </div>
 
@@ -359,7 +355,7 @@ export function OnboardingWizard() {
                             type="checkbox"
                             checked={Array.isArray(answers[question.id]) && answers[question.id].includes(option)}
                             onChange={(e) => {
-                              const current = answers[question.id] || [];
+                              const current = Array.isArray(answers[question.id]) ? (answers[question.id] as string[]) : [];
                               const updated = e.target.checked
                                 ? [...current, option]
                                 : current.filter((item: string) => item !== option);

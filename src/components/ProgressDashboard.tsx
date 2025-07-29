@@ -211,25 +211,25 @@ export function ProgressDashboard() {
                       <div className="bg-white p-4 rounded-lg border">
                         <div className="space-y-2 text-sm">
                           <div>
-                            <span className="font-medium">Current Software:</span> {migration.intake_responses[0].current_software}
+                            <span className="font-medium">Current Software:</span> {(migration.intake_responses[0] as any).current_software}
                           </div>
                           <div>
-                            <span className="font-medium">Target Software:</span> {migration.intake_responses[0].target_software}
+                            <span className="font-medium">Target Software:</span> {(migration.intake_responses[0] as any).target_software}
                           </div>
                           <div>
                             <span className="font-medium">Data Requirements:</span>
                             <div className="mt-1">
-                              {migration.intake_responses[0].data_preservation_requirements.map((req: string, index: number) => (
+                              {(migration.intake_responses[0] as any).data_preservation_requirements.map((req: string, index: number) => (
                                 <span key={index} className="inline-block bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded mr-1 mb-1">
                                   {req}
                                 </span>
                               ))}
                             </div>
                           </div>
-                          {migration.intake_responses[0].ai_summary && (
+                          {(migration.intake_responses[0] as any).ai_summary && (
                             <div className="mt-3 p-3 bg-blue-50 rounded border-l-4 border-blue-400">
                               <p className="text-sm text-blue-800">
-                                <strong>AI Analysis:</strong> {migration.intake_responses[0].ai_summary.substring(0, 200)}...
+                                <strong>AI Analysis:</strong> {(migration.intake_responses[0] as any).ai_summary.substring(0, 200)}...
                               </p>
                             </div>
                           )}
@@ -245,12 +245,12 @@ export function ProgressDashboard() {
                       <div className="bg-white p-4 rounded-lg border">
                         <div className="space-y-2">
                           {migration.files.map((file: unknown) => (
-                            <div key={file.id} className="flex items-center justify-between text-sm">
+                            <div key={(file as any).id} className="flex items-center justify-between text-sm">
                               <div className="flex items-center space-x-2">
                                 <FileText className="w-4 h-4 text-gray-400" />
-                                <span className="font-medium">{file.filename}</span>
+                                <span className="font-medium">{(file as any).filename}</span>
                               </div>
-                              <span className="text-gray-500">{file.file_type}</span>
+                              <span className="text-gray-500">{(file as any).file_type}</span>
                             </div>
                           ))}
                         </div>
@@ -264,16 +264,16 @@ export function ProgressDashboard() {
                       <h4 className="font-semibold text-gray-900 mb-3">AI Analysis</h4>
                       <div className="space-y-3">
                         {migration.ai_analyses.map((analysis: unknown) => (
-                          <div key={analysis.id} className="bg-white p-4 rounded-lg border">
+                          <div key={(analysis as any).id} className="bg-white p-4 rounded-lg border">
                             <div className="flex items-center space-x-2 mb-2">
                               <Brain className="w-4 h-4 text-blue-500" />
                               <span className="font-medium text-sm capitalize">
-                                {analysis.analysis_type.replace('_', ' ')}
+                                {(analysis as any).analysis_type.replace('_', ' ')}
                               </span>
                             </div>
                             <div className="text-sm text-gray-700 whitespace-pre-wrap">
-                              {analysis.content.substring(0, 300)}
-                              {analysis.content.length > 300 && '...'}
+                              {(analysis as any).content.substring(0, 300)}
+                              {(analysis as any).content.length > 300 && '...'}
                             </div>
                           </div>
                         ))}

@@ -62,14 +62,12 @@ export default function LandingPage() {
           </Badge>
           
           <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
-            Migrate from QuickBooks Desktop
-            <span className="text-green-600"> Without the Headache</span>
+            <span className="text-green-600">The Fastest Way Off The Books</span>
           </h1>
           
           <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
-            AI-powered migration service that guarantees zero data loss. 
-            Move from QuickBooks Desktop to cloud solutions in 24 hours with 
-            complete audit trails and expert support.
+            Migrate from QuickBooks Desktop to the cloud in 24 hours with our AI-powered service.
+            Zero data loss guaranteed.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">

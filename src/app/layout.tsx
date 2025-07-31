@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Escape Ramp - Zero Data Loss QuickBooks Migration",
-  description: "AI-powered QuickBooks Desktop migration service with zero data loss guarantee. Migrate to cloud solutions in 24 hours with complete audit trails.",
+  title: "Escape Ramp - The Fastest Way Off The Books",
+  description: "The fastest way to migrate from QuickBooks Desktop to the cloud. Zero data loss guaranteed in 24 hours with AI-powered migration service.",
   keywords: "QuickBooks migration, QuickBooks Desktop, data migration, zero data loss, AI migration, cloud accounting",
   authors: [{ name: "Escape Ramp Team" }],
   creator: "Escape Ramp",
@@ -25,9 +25,9 @@ export const metadata: Metadata = {
     telephone: false,
   },
   metadataBase: new URL('https://escaperamp.com'),
-  openGraph: {
-    title: "Escape Ramp - Zero Data Loss QuickBooks Migration",
-    description: "AI-powered QuickBooks Desktop migration service with zero data loss guarantee.",
+            openGraph: {
+            title: "Escape Ramp - The Fastest Way Off The Books",
+            description: "The fastest way to migrate from QuickBooks Desktop to the cloud. Zero data loss guaranteed.",
     url: 'https://escaperamp.com',
     siteName: 'Escape Ramp',
     images: [
@@ -41,10 +41,10 @@ export const metadata: Metadata = {
     locale: 'en_US',
     type: 'website',
   },
-  twitter: {
-    card: 'summary_large_image',
-    title: "Escape Ramp - Zero Data Loss QuickBooks Migration",
-    description: "AI-powered QuickBooks Desktop migration service with zero data loss guarantee.",
+            twitter: {
+            card: 'summary_large_image',
+            title: "Escape Ramp - The Fastest Way Off The Books",
+            description: "The fastest way to migrate from QuickBooks Desktop to the cloud. Zero data loss guaranteed.",
     images: ['/og-image.png'],
   },
   robots: {

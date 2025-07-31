@@ -1,0 +1,11 @@
+Customer,CustomerType,CompanyName,FirstName,LastName,Phone,Email,Balance,Address1,Address2,City,State,Zip,Country
+CUST001,Commercial,ABC Corporation,John,Smith,(555) 123-4567,john.smith@abccorp.com,5000.00,123 Main St,Suite 100,New York,NY,10001,USA
+CUST002,Individual,,Jane,Doe,(555) 234-5678,jane.doe@email.com,2500.00,456 Oak Ave,,Los Angeles,CA,90210,USA
+CUST003,Commercial,XYZ Manufacturing,Mike,Johnson,(555) 345-6789,mike.j@xyzmanufacturing.com,7500.00,789 Industrial Blvd,,Chicago,IL,60601,USA
+CUST004,Individual,,Sarah,Wilson,(555) 456-7890,sarah.wilson@email.com,1200.00,321 Pine St,Apt 5B,Houston,TX,77001,USA
+CUST005,Commercial,Global Solutions Inc,David,Brown,(555) 567-8901,david.brown@globalsolutions.com,3000.00,654 Business Park Dr,,Phoenix,AZ,85001,USA
+CUST006,Individual,,Lisa,Davis,(555) 678-9012,lisa.davis@email.com,800.00,987 Elm St,,Philadelphia,PA,19101,USA
+CUST007,Commercial,Tech Innovations,Robert,Miller,(555) 789-0123,robert.miller@techinnovations.com,4200.00,147 Innovation Way,,San Antonio,TX,78201,USA
+CUST008,Individual,,Emily,Taylor,(555) 890-1234,emily.taylor@email.com,1500.00,258 Cedar Ln,,San Diego,CA,92101,USA
+CUST009,Commercial,Peak Performance,Chris,Anderson,(555) 901-2345,chris.anderson@peakperformance.com,6800.00,369 Summit Ave,,Dallas,TX,75201,USA
+CUST010,Individual,,Amanda,Thomas,(555) 012-3456,amanda.thomas@email.com,950.00,741 Maple Dr,,San Jose,CA,95101,USA 

@@ -59,6 +59,7 @@ import {
 import { AIAssistant } from "./AIAssistant"
 import { DocumentUpload } from "./DocumentUpload"
 import { HistoricalDataTracker } from "./HistoricalDataTracker"
+import { SupportPortal } from "./SupportPortal"
 
 type NavigationItem = {
   title: string
@@ -73,6 +74,7 @@ const navigationItems: NavigationItem[] = [
   { title: "Upload Files", icon: Upload, id: "upload" },
   { title: "Connect Cloud App", icon: Cloud, id: "connect" },
   { title: "AI Assistant", icon: Bot, id: "assistant", badge: "Smart" },
+  { title: "Support Portal", icon: MessageSquare, id: "support", badge: "24/7" },
   { title: "Analytics & Reports", icon: BarChart3, id: "analytics", badge: "New" },
   { title: "Audit Trail", icon: History, id: "audit" },
   { title: "Pricing & Billing", icon: DollarSign, id: "pricing" },
@@ -969,6 +971,10 @@ function AIAssistantView() {
   return <AIAssistant />
 }
 
+function SupportPortalView() {
+  return <SupportPortal />
+}
+
 function SettingsView() {
   const [notifications, setNotifications] = useState({
     email: true,
@@ -1279,6 +1285,8 @@ export default function Dashboard() {
         return <ConnectCloudAppView />
       case "assistant":
         return <AIAssistantView />
+      case "support":
+        return <SupportPortalView />
       case "analytics":
         return <AnalyticsView />
       case "audit":

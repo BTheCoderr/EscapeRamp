@@ -1,0 +1,11 @@
+Vendor,VendorType,CompanyName,FirstName,LastName,Phone,Email,Balance,Address1,Address2,City,State,Zip,Country
+VEND001,Service,Office Supplies Plus,,,(555) 111-2222,orders@officesuppliesplus.com,-2000.00,111 Supply St,,New York,NY,10002,USA
+VEND002,Product,ABC Manufacturing,,,(555) 222-3333,purchasing@abcmanufacturing.com,-1500.00,222 Factory Ave,,Chicago,IL,60602,USA
+VEND003,Service,Professional Services Inc,Bob,Johnson,(555) 333-4444,bob.johnson@proservices.com,-3000.00,333 Service Blvd,,Los Angeles,CA,90211,USA
+VEND004,Product,Global Distributors,,,(555) 444-5555,sales@globaldistributors.com,-1200.00,444 Distribution Way,,Houston,TX,77002,USA
+VEND005,Service,IT Solutions Pro,Alice,Williams,(555) 555-6666,alice.williams@itsolutionspro.com,-2500.00,555 Tech Drive,,Phoenix,AZ,85002,USA
+VEND006,Product,Quality Materials Co,,,(555) 666-7777,orders@qualitymaterials.com,-800.00,666 Material St,,Philadelphia,PA,19102,USA
+VEND007,Service,Marketing Experts,Tom,Davis,(555) 777-8888,tom.davis@marketingexperts.com,-1800.00,777 Marketing Ave,,San Antonio,TX,78202,USA
+VEND008,Product,Industrial Supply Corp,,,(555) 888-9999,sales@industrialsupply.com,-2200.00,888 Industrial Blvd,,San Diego,CA,92102,USA
+VEND009,Service,Legal Services LLC,Patricia,Miller,(555) 999-0000,patricia.miller@legalservices.com,-3500.00,999 Legal Way,,Dallas,TX,75202,USA
+VEND010,Product,Office Equipment Inc,,,(555) 000-1111,orders@officeequipment.com,-950.00,1000 Equipment Dr,,San Jose,CA,95102,USA 

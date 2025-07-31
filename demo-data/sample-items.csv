@@ -1,0 +1,11 @@
+Item,ItemType,Description,Rate,Cost,QuantityOnHand,Account,TaxCode,Active
+ITEM001,Service,Consulting Services,150.00,0.00,0,4100,,TRUE
+ITEM002,Service,Web Development,200.00,0.00,0,4100,,TRUE
+ITEM003,Service,Training Services,125.00,0.00,0,4100,,TRUE
+ITEM004,Inventory,Product A,25.00,15.00,100,1200,,TRUE
+ITEM005,Inventory,Product B,35.00,22.00,75,1200,,TRUE
+ITEM006,Inventory,Product C,45.00,30.00,50,1200,,TRUE
+ITEM007,Non-inventory,Shipping,10.00,0.00,0,4000,,TRUE
+ITEM008,Non-inventory,Handling Fee,5.00,0.00,0,4000,,TRUE
+ITEM009,Service,Maintenance Contract,500.00,0.00,0,4100,,TRUE
+ITEM010,Service,Support Services,75.00,0.00,0,4100,,TRUE 

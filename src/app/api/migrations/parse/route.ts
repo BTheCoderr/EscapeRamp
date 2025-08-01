@@ -1,12 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createServerSupabaseClient } from '@/lib/supabase/server';
+import { createClient } from '@/lib/supabase/server';
 import { parseQuickBooksExport, analyzeMigrationComplexity } from '@/lib/claude';
 import { cookies } from 'next/headers';
 
 export async function POST(request: NextRequest) {
   try {
     const cookieStore = await cookies();
-    const supabase = createServerSupabaseClient(cookieStore);
+    const supabase = createClient(cookieStore);
     
     // Get current user
     const { data: { user }, error: authError } = await supabase.auth.getUser();
@@ -124,7 +124,7 @@ export async function POST(request: NextRequest) {
 export async function GET(request: NextRequest) {
   try {
     const cookieStore = await cookies();
-    const supabase = createServerSupabaseClient(cookieStore);
+    const supabase = createClient(cookieStore);
     
     const { data: { user }, error: authError } = await supabase.auth.getUser();
     if (authError || !user) {

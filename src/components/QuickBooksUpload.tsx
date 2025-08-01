@@ -102,12 +102,15 @@ export function QuickBooksUpload() {
         });
       }, 500);
 
-      const response = await fetch('/api/migrations/parse', {
+      // Get current user ID (you'll need to implement this based on your auth)
+      const userId = 'demo-user-id'; // Replace with actual user ID from auth
+      
+      const response = await fetch('/api/parse', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ fileUrl, filename }),
+        body: JSON.stringify({ userId, fileUrl }),
       });
 
       clearInterval(progressInterval);

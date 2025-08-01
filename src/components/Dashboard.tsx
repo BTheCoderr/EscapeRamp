@@ -61,6 +61,7 @@ import { DocumentUpload } from "./DocumentUpload"
 import { HistoricalDataTracker } from "./HistoricalDataTracker"
 import { SupportPortal } from "./SupportPortal"
 import FileUploader from "./FileUploader"
+import QuickBooksConnection from "./QuickBooksConnection"
 
 type NavigationItem = {
   title: string
@@ -786,60 +787,6 @@ function UploadFilesView() {
 }
 
 function ConnectCloudAppView() {
-  const [selectedApp, setSelectedApp] = useState<string>("")
-  const [connectionStatus, setConnectionStatus] = useState<Record<string, string>>({})
-
-  const cloudApps = [
-    {
-      id: "quickbooks-online",
-      name: "QuickBooks Online",
-      description: "Connect to your existing QuickBooks Online account",
-      icon: "💼",
-      status: "connected",
-      lastSync: "2 hours ago"
-    },
-    {
-      id: "xero",
-      name: "Xero",
-      description: "Popular cloud accounting for small businesses",
-      icon: "📊",
-      status: "available",
-      lastSync: null
-    },
-    {
-      id: "freshbooks",
-      name: "FreshBooks",
-      description: "Simple invoicing and time tracking",
-      icon: "⏰",
-      status: "available",
-      lastSync: null
-    },
-    {
-      id: "wave",
-      name: "Wave",
-      description: "Free accounting software for small businesses",
-      icon: "🌊",
-      status: "available",
-      lastSync: null
-    },
-    {
-      id: "sage-intacct",
-      name: "Sage Intacct",
-      description: "Advanced cloud ERP for growing companies",
-      icon: "📈",
-      status: "available",
-      lastSync: null
-    }
-  ]
-
-  const handleConnect = (appId: string) => {
-    setConnectionStatus(prev => ({ ...prev, [appId]: "connecting" }))
-    // Simulate connection process
-    setTimeout(() => {
-      setConnectionStatus(prev => ({ ...prev, [appId]: "connected" }))
-    }, 2000)
-  }
-
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -847,7 +794,7 @@ function ConnectCloudAppView() {
         <div>
           <h1 className="text-3xl font-bold">Connect Cloud App</h1>
           <p className="text-muted-foreground mt-2">
-            Choose your destination cloud accounting platform. We&apos;ll handle the migration seamlessly.
+            Connect your QuickBooks Online account to sync data and perform migrations.
           </p>
         </div>
         <Button variant="outline" className="flex items-center gap-2">
@@ -856,94 +803,11 @@ function ConnectCloudAppView() {
         </Button>
       </div>
 
-      {/* Connection Status */}
-      <Card className="bg-blue-50 border-blue-200">
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2 text-blue-800">
-            <CheckCircle className="w-5 h-5" />
-            Current Connection
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="flex items-center gap-4">
-            <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center text-2xl">
-              💼
-            </div>
-            <div className="flex-1">
-              <h3 className="font-semibold">QuickBooks Online</h3>
-              <p className="text-sm text-muted-foreground">Connected • Last sync: 2 hours ago</p>
-            </div>
-            <Badge className="bg-green-100 text-green-700">Connected</Badge>
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* Available Apps Grid */}
-      <div>
-        <h2 className="text-xl font-semibold mb-4">Available Cloud Platforms</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {cloudApps.map((app) => (
-            <Card key={app.id} className="hover:shadow-md transition-shadow">
-              <CardHeader>
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center text-xl">
-                    {app.icon}
-                  </div>
-                  <div>
-                    <CardTitle className="text-lg">{app.name}</CardTitle>
-                    <CardDescription>{app.description}</CardDescription>
-                  </div>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm text-muted-foreground">Status:</span>
-                    <Badge 
-                      variant={app.status === "connected" ? "default" : "secondary"}
-                      className={app.status === "connected" ? "bg-green-100 text-green-700" : ""}
-                    >
-                      {app.status === "connected" ? "Connected" : "Available"}
-                    </Badge>
-                  </div>
-                  
-                  {app.lastSync && (
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm text-muted-foreground">Last Sync:</span>
-                      <span className="text-sm">{app.lastSync}</span>
-                    </div>
-                  )}
-                  
-                  <Button 
-                    className="w-full" 
-                    variant={app.status === "connected" ? "outline" : "default"}
-                    disabled={app.status === "connected" || connectionStatus[app.id] === "connecting"}
-                    onClick={() => {
-                      if (app.status === "connected") {
-                        // Show connection details
-                        alert(`${app.name} is already connected. Last sync: ${app.lastSync}`);
-                      } else {
-                        handleConnect(app.id);
-                      }
-                    }}
-                  >
-                    {connectionStatus[app.id] === "connecting" ? (
-                      <>
-                        <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2" />
-                        Connecting...
-                      </>
-                    ) : app.status === "connected" ? (
-                      "Connected"
-                    ) : (
-                      "Connect"
-                    )}
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      </div>
+      {/* QuickBooks Connection */}
+      <QuickBooksConnection />
+    </div>
+  );
+}
 
       {/* Migration Benefits */}
       <Card className="bg-gradient-to-r from-green-50 to-blue-50 border-green-200">

@@ -83,7 +83,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({
       success: true,
-      message,
+      data: message,
       message: 'Message sent successfully'
     });
 

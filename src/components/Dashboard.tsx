@@ -60,6 +60,7 @@ import { AIAssistant } from "./AIAssistant"
 import { DocumentUpload } from "./DocumentUpload"
 import { HistoricalDataTracker } from "./HistoricalDataTracker"
 import { SupportPortal } from "./SupportPortal"
+import { QuickBooksUpload } from "./QuickBooksUpload"
 
 type NavigationItem = {
   title: string
@@ -766,7 +767,7 @@ function PricingView() {
 }
 
 function UploadFilesView() {
-  return <DocumentUpload />
+  return <QuickBooksUpload />
 }
 
 function ConnectCloudAppView() {

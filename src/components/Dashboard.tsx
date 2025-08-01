@@ -60,7 +60,7 @@ import { AIAssistant } from "./AIAssistant"
 import { DocumentUpload } from "./DocumentUpload"
 import { HistoricalDataTracker } from "./HistoricalDataTracker"
 import { SupportPortal } from "./SupportPortal"
-import { QuickBooksUpload } from "./QuickBooksUpload"
+import FileUploader from "./FileUploader"
 
 type NavigationItem = {
   title: string
@@ -767,7 +767,22 @@ function PricingView() {
 }
 
 function UploadFilesView() {
-  return <QuickBooksUpload />
+  // For demo purposes, using a hardcoded user ID
+  // In production, this would come from your auth system
+  const userId = "demo-user-123";
+  
+  return (
+    <div className="space-y-6">
+      <div className="text-center">
+        <h1 className="text-3xl font-bold">Upload QuickBooks Files</h1>
+        <p className="text-muted-foreground mt-2">
+          Upload your QuickBooks Desktop exports for AI-powered parsing and migration analysis
+        </p>
+      </div>
+      
+      <FileUploader userId={userId} />
+    </div>
+  );
 }
 
 function ConnectCloudAppView() {

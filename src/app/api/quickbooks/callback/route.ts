@@ -7,6 +7,17 @@ export async function GET(request: NextRequest) {
     const code = searchParams.get('code');
     const realmId = searchParams.get('realmId');
     const state = searchParams.get('state');
+    const test = searchParams.get('test');
+
+    // Handle test requests
+    if (test === 'true') {
+      return NextResponse.json({
+        status: 'Callback endpoint is working',
+        environment: process.env.QUICKBOOKS_ENVIRONMENT,
+        redirectUri: process.env.QUICKBOOKS_REDIRECT_URI,
+        timestamp: new Date().toISOString()
+      });
+    }
 
     if (!code || !realmId) {
       return NextResponse.json(

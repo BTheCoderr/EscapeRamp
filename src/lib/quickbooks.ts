@@ -10,12 +10,17 @@ const getRedirectUri = () => {
   return process.env.QUICKBOOKS_REDIRECT_URI || 'https://escaperamp.vercel.app/api/quickbooks/callback';
 };
 
-const oauthClient = new OAuthClient({
-  clientId: process.env.QUICKBOOKS_CLIENT_ID!,
-  clientSecret: process.env.QUICKBOOKS_CLIENT_SECRET!,
-  environment: (process.env.QUICKBOOKS_ENVIRONMENT as 'sandbox' | 'production') || 'sandbox',
-  redirectUri: getRedirectUri(),
-});
+// Create OAuth client with dynamic redirect URI
+const createOAuthClient = () => {
+  return new OAuthClient({
+    clientId: process.env.QUICKBOOKS_CLIENT_ID!,
+    clientSecret: process.env.QUICKBOOKS_CLIENT_SECRET!,
+    environment: (process.env.QUICKBOOKS_ENVIRONMENT as 'sandbox' | 'production') || 'sandbox',
+    redirectUri: getRedirectUri(),
+  });
+};
+
+let oauthClient = createOAuthClient();
 
 export interface QBAccount {
   Id: string;
@@ -75,6 +80,8 @@ export class QuickBooksService {
 
   // Get OAuth authorization URL
   getAuthorizationUrl(): string {
+    // Recreate OAuth client to ensure correct redirect URI
+    oauthClient = createOAuthClient();
     return oauthClient.authorizeUri({
       scope: [
         OAuthClient.scopes.Accounting,
@@ -89,6 +96,8 @@ export class QuickBooksService {
   // Handle OAuth callback
   async handleCallback(url: string) {
     try {
+      // Recreate OAuth client to ensure correct redirect URI
+      oauthClient = createOAuthClient();
       const authResponse = await oauthClient.createToken(url);
       const { access_token, refresh_token, realmId } = authResponse.token;
       

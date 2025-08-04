@@ -6,7 +6,7 @@ const oauthClient = new OAuthClient({
   clientId: process.env.QUICKBOOKS_CLIENT_ID || 'ABnfCiPUvMHVKX3iqAHRxVb4it36hOajBtHmoknHN2ulclUaN1',
   clientSecret: process.env.QUICKBOOKS_CLIENT_SECRET || 'JHxDn80eeCt9L8LvcyllqHa6aab5eY0Ru9gM6Pse',
   environment: 'sandbox', // or 'production'
-  redirectUri: process.env.QUICKBOOKS_REDIRECT_URI || 'http://localhost:3001/api/quickbooks/callback',
+  redirectUri: process.env.QUICKBOOKS_REDIRECT_URI || 'http://localhost:3000/api/quickbooks/callback',
 });
 
 export interface QBAccount {
@@ -224,10 +224,11 @@ export class QuickBooksService {
 
   // Get company info
   async getCompanyInfo() {
-    if (!this.qbo) throw new Error('QuickBooks not initialized');
+    const qbo = this.qbo;
+    if (!qbo) throw new Error('QuickBooks not initialized');
     
     return new Promise((resolve, reject) => {
-      this.qbo!.getCompanyInfo(this.qbo.realmId, (err, companyInfo) => {
+      qbo.getCompanyInfo(qbo.realmId, (err, companyInfo) => {
         if (err) {
           reject(err);
         } else {

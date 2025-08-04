@@ -13,7 +13,8 @@ import {
   RefreshCw,
   Database,
   Users,
-  FileText
+  FileText,
+  Brain
 } from 'lucide-react';
 
 interface QBData {
@@ -29,6 +30,7 @@ export default function QuickBooksConnection() {
   const [realmId, setRealmId] = useState<string | null>(null);
   const [qbData, setQbData] = useState<QBData>({});
   const [error, setError] = useState<string | null>(null);
+  const [analysis, setAnalysis] = useState<string | null>(null);
 
   // Check URL parameters for connection status
   useEffect(() => {
@@ -53,39 +55,92 @@ export default function QuickBooksConnection() {
     window.location.href = '/api/quickbooks/auth';
   };
 
-  const handleDisconnect = () => {
-    setIsConnected(false);
-    setRealmId(null);
-    setQbData({});
+  const handleDisconnect = async () => {
+    setIsLoading(true);
     setError(null);
     
-    // Clear URL parameters
-    const url = new URL(window.location.href);
-    url.searchParams.delete('quickbooks');
-    url.searchParams.delete('realmId');
-    window.history.replaceState({}, '', url.toString());
+    try {
+      const response = await fetch('/api/quickbooks/disconnect', {
+        method: 'POST'
+      });
+      
+      if (response.ok) {
+        setIsConnected(false);
+        setRealmId(null);
+        setQbData({});
+        
+        // Clear URL parameters
+        const url = new URL(window.location.href);
+        url.searchParams.delete('quickbooks');
+        url.searchParams.delete('realmId');
+        window.history.replaceState({}, '', url.toString());
+      } else {
+        throw new Error('Failed to disconnect');
+      }
+    } catch (err) {
+      setError(`Failed to disconnect: ${err instanceof Error ? err.message : 'Unknown error'}`);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const fetchQBData = async (dataType: string) => {
-    if (!realmId) return;
-
     setIsLoading(true);
+    setError(null);
+    
     try {
-      // In a real app, you'd get these tokens from your database
-      // For demo purposes, we'll use placeholder values
-      const response = await fetch(`/api/quickbooks/data?type=${dataType}&accessToken=demo&refreshToken=demo&realmId=${realmId}`);
+      let response;
+      
+      if (dataType === 'customers') {
+        response = await fetch('/api/quickbooks/customers');
+      } else if (dataType === 'invoices') {
+        response = await fetch('/api/quickbooks/invoices');
+      } else {
+        throw new Error('Unsupported data type');
+      }
       
       if (response.ok) {
         const result = await response.json();
-        setQbData(prev => ({
-          ...prev,
-          [dataType]: result.data
-        }));
+        if (result.success) {
+          setQbData(prev => ({
+            ...prev,
+            [dataType]: dataType === 'customers' ? result.customers : result.invoices
+          }));
+        } else {
+          throw new Error(result.error || 'Failed to fetch data');
+        }
       } else {
         throw new Error('Failed to fetch data');
       }
     } catch (err) {
       setError(`Failed to fetch ${dataType}: ${err instanceof Error ? err.message : 'Unknown error'}`);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const analyzeCustomers = async () => {
+    setIsLoading(true);
+    setError(null);
+    setAnalysis(null);
+    
+    try {
+      const response = await fetch('/api/analyze/customers', {
+        method: 'POST'
+      });
+      
+      if (response.ok) {
+        const result = await response.json();
+        if (result.success) {
+          setAnalysis(result.analysis);
+        } else {
+          throw new Error(result.error || 'Failed to analyze customers');
+        }
+      } else {
+        throw new Error('Failed to analyze customers');
+      }
+    } catch (err) {
+      setError(`Failed to analyze customers: ${err instanceof Error ? err.message : 'Unknown error'}`);
     } finally {
       setIsLoading(false);
     }
@@ -148,7 +203,7 @@ export default function QuickBooksConnection() {
                 <Badge className="bg-green-100 text-green-800">Connected</Badge>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                 <Button
                   variant="outline"
                   onClick={() => fetchQBData('accounts')}
@@ -185,6 +240,19 @@ export default function QuickBooksConnection() {
                   <span>Fetch Invoices</span>
                   {qbData.invoices && (
                     <Badge variant="secondary">{qbData.invoices.length}</Badge>
+                  )}
+                </Button>
+
+                <Button
+                  variant="outline"
+                  onClick={analyzeCustomers}
+                  disabled={isLoading || !qbData.customers}
+                  className="h-auto p-4 flex flex-col items-center gap-2"
+                >
+                  <Brain className="w-5 h-5" />
+                  <span>Analyze Customers</span>
+                  {analysis && (
+                    <Badge variant="secondary">AI Analysis</Badge>
                   )}
                 </Button>
               </div>
@@ -258,6 +326,19 @@ export default function QuickBooksConnection() {
                   </div>
                 </div>
               )}
+            </div>
+          )}
+
+          {/* Display AI Analysis */}
+          {analysis && (
+            <div className="space-y-4">
+              <h4 className="font-semibold">AI Customer Analysis</h4>
+              <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
+                <h5 className="font-medium mb-2 text-blue-800">Hugging Face Analysis</h5>
+                <div className="text-sm text-blue-700 whitespace-pre-wrap">
+                  {analysis}
+                </div>
+              </div>
             </div>
           )}
         </CardContent>

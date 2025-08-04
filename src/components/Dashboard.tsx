@@ -809,44 +809,6 @@ function ConnectCloudAppView() {
   );
 }
 
-      {/* Migration Benefits */}
-      <Card className="bg-gradient-to-r from-green-50 to-blue-50 border-green-200">
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2 text-green-800">
-            <Zap className="w-5 h-5" />
-            Why Migrate to Cloud?
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="text-center">
-              <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mx-auto mb-3">
-                <Shield className="w-6 h-6 text-green-600" />
-              </div>
-              <h3 className="font-semibold mb-1">Automatic Backups</h3>
-              <p className="text-sm text-muted-foreground">Your data is automatically backed up and secure</p>
-            </div>
-            <div className="text-center">
-              <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mx-auto mb-3">
-                <Users className="w-6 h-6 text-blue-600" />
-              </div>
-              <h3 className="font-semibold mb-1">Team Collaboration</h3>
-              <p className="text-sm text-muted-foreground">Multiple users can access and work simultaneously</p>
-            </div>
-            <div className="text-center">
-              <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mx-auto mb-3">
-                <TrendingUp className="w-6 h-6 text-purple-600" />
-              </div>
-              <h3 className="font-semibold mb-1">Real-time Updates</h3>
-              <p className="text-sm text-muted-foreground">Always have the latest features and security updates</p>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-    </div>
-  )
-}
-
 function AIAssistantView() {
   return <AIAssistant />
 }

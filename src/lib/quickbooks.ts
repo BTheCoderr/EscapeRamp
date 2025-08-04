@@ -3,10 +3,10 @@ import QuickBooks from 'node-quickbooks';
 
 // QuickBooks OAuth Configuration
 const oauthClient = new OAuthClient({
-  clientId: process.env.QUICKBOOKS_CLIENT_ID || 'ABnfCiPUvMHVKX3iqAHRxVb4it36hOajBtHmoknHN2ulclUaN1',
-  clientSecret: process.env.QUICKBOOKS_CLIENT_SECRET || 'JHxDn80eeCt9L8LvcyllqHa6aab5eY0Ru9gM6Pse',
-  environment: 'sandbox', // or 'production'
-  redirectUri: process.env.QUICKBOOKS_REDIRECT_URI || 'http://localhost:3000/api/quickbooks/callback',
+  clientId: process.env.QUICKBOOKS_CLIENT_ID!,
+  clientSecret: process.env.QUICKBOOKS_CLIENT_SECRET!,
+  environment: (process.env.QUICKBOOKS_ENVIRONMENT as 'sandbox' | 'production') || 'sandbox',
+  redirectUri: process.env.QUICKBOOKS_REDIRECT_URI!,
 });
 
 export interface QBAccount {
@@ -86,12 +86,12 @@ export class QuickBooksService {
       
       // Initialize QuickBooks client
       this.qbo = new QuickBooks(
-        process.env.QUICKBOOKS_CLIENT_ID || 'ABnfCiPUvMHVKX3iqAHRxVb4it36hOajBtHmoknHN2ulclUaN1',
-        process.env.QUICKBOOKS_CLIENT_SECRET || 'JHxDn80eeCt9L8LvcyllqHa6aab5eY0Ru9gM6Pse',
+        process.env.QUICKBOOKS_CLIENT_ID!,
+        process.env.QUICKBOOKS_CLIENT_SECRET!,
         access_token,
         false, // no debug
         realmId,
-        'sandbox', // sandbox or production
+        (process.env.QUICKBOOKS_ENVIRONMENT as 'sandbox' | 'production') || 'sandbox',
         true, // enable logging
         4, // set minor version
         '2.0', // oauth version
@@ -113,12 +113,12 @@ export class QuickBooksService {
   // Initialize with existing tokens
   initialize(accessToken: string, refreshToken: string, realmId: string) {
     this.qbo = new QuickBooks(
-      process.env.QUICKBOOKS_CLIENT_ID || 'ABnfCiPUvMHVKX3iqAHRxVb4it36hOajBtHmoknHN2ulclUaN1',
-      process.env.QUICKBOOKS_CLIENT_SECRET || 'JHxDn80eeCt9L8LvcyllqHa6aab5eY0Ru9gM6Pse',
+      process.env.QUICKBOOKS_CLIENT_ID!,
+      process.env.QUICKBOOKS_CLIENT_SECRET!,
       accessToken,
       false,
       realmId,
-      'sandbox',
+      (process.env.QUICKBOOKS_ENVIRONMENT as 'sandbox' | 'production') || 'sandbox',
       true,
       4,
       '2.0',

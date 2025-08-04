@@ -1,6 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { quickBooksService } from '@/lib/quickbooks';
 
+// Helper function to get the correct redirect URI
+const getRedirectUri = () => {
+  // For server-side, check if we're in development context
+  if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === undefined) {
+    return 'http://localhost:3000/api/quickbooks/callback';
+  }
+  return process.env.QUICKBOOKS_REDIRECT_URI || 'https://escaperamp.vercel.app/api/quickbooks/callback';
+};
+
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
@@ -14,7 +23,7 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({
         status: 'Callback endpoint is working',
         environment: process.env.QUICKBOOKS_ENVIRONMENT,
-        redirectUri: process.env.QUICKBOOKS_REDIRECT_URI,
+        redirectUri: getRedirectUri(),
         timestamp: new Date().toISOString()
       });
     }

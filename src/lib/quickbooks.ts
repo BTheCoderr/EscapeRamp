@@ -4,19 +4,38 @@ import QuickBooks from 'node-quickbooks';
 // QuickBooks OAuth Configuration
 const getRedirectUri = () => {
   // Use localhost for development, Vercel for production
-  if (process.env.NODE_ENV === 'development') {
-    return 'http://localhost:3000/api/quickbooks/callback';
+  // Check if we're running on localhost (development)
+  if (typeof window !== 'undefined') {
+    // Client-side: check if we're on localhost
+    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+      return 'http://localhost:3000/api/quickbooks/callback';
+    }
+  } else {
+    // Server-side: check NODE_ENV and also check if we're in a development context
+    if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === undefined) {
+      return 'http://localhost:3000/api/quickbooks/callback';
+    }
   }
   return process.env.QUICKBOOKS_REDIRECT_URI || 'https://escaperamp.vercel.app/api/quickbooks/callback';
 };
 
 // Create OAuth client with dynamic redirect URI
 const createOAuthClient = () => {
+  const environment = (process.env.QUICKBOOKS_ENVIRONMENT as 'sandbox' | 'production') || 'sandbox';
+  const redirectUri = getRedirectUri();
+  
+  console.log('Creating OAuth client with:', {
+    clientId: process.env.QUICKBOOKS_CLIENT_ID ? 'SET' : 'NOT SET',
+    environment,
+    redirectUri,
+    nodeEnv: process.env.NODE_ENV
+  });
+  
   return new OAuthClient({
     clientId: process.env.QUICKBOOKS_CLIENT_ID!,
     clientSecret: process.env.QUICKBOOKS_CLIENT_SECRET!,
-    environment: (process.env.QUICKBOOKS_ENVIRONMENT as 'sandbox' | 'production') || 'sandbox',
-    redirectUri: getRedirectUri(),
+    environment,
+    redirectUri,
   });
 };
 

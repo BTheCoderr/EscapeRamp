@@ -2,11 +2,19 @@ import OAuthClient from 'intuit-oauth';
 import QuickBooks from 'node-quickbooks';
 
 // QuickBooks OAuth Configuration
+const getRedirectUri = () => {
+  // Use localhost for development, Vercel for production
+  if (process.env.NODE_ENV === 'development') {
+    return 'http://localhost:3000/api/quickbooks/callback';
+  }
+  return process.env.QUICKBOOKS_REDIRECT_URI || 'https://escaperamp.vercel.app/api/quickbooks/callback';
+};
+
 const oauthClient = new OAuthClient({
   clientId: process.env.QUICKBOOKS_CLIENT_ID!,
   clientSecret: process.env.QUICKBOOKS_CLIENT_SECRET!,
   environment: (process.env.QUICKBOOKS_ENVIRONMENT as 'sandbox' | 'production') || 'sandbox',
-  redirectUri: process.env.QUICKBOOKS_REDIRECT_URI!,
+  redirectUri: getRedirectUri(),
 });
 
 export interface QBAccount {

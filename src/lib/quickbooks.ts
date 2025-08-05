@@ -3,6 +3,11 @@ import QuickBooks from 'node-quickbooks';
 
 // QuickBooks OAuth Configuration
 const getRedirectUri = () => {
+  // Use environment variable if set, otherwise fall back to defaults
+  if (process.env.QUICKBOOKS_REDIRECT_URI) {
+    return process.env.QUICKBOOKS_REDIRECT_URI;
+  }
+  
   // Use localhost for development, Vercel for production
   // Check if we're running on localhost (development)
   if (typeof window !== 'undefined') {
@@ -16,7 +21,7 @@ const getRedirectUri = () => {
       return 'http://localhost:3000/api/quickbooks/callback';
     }
   }
-  return process.env.QUICKBOOKS_REDIRECT_URI || 'https://escaperamp.vercel.app/api/quickbooks/callback';
+  return 'https://escaperamp.vercel.app/api/quickbooks/callback';
 };
 
 // Create OAuth client with dynamic redirect URI

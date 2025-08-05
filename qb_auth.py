@@ -4,8 +4,8 @@ import os
 from urllib.parse import urlencode
 
 # === CONFIG (DEV MODE for now) ===
-CLIENT_ID = "ABnfCiPUvMHVKX3iqAHRxVb4it36hOajBtHmoknHN2ulclUa1"  # Your actual Client ID
-CLIENT_SECRET = "JHxDn80eeCt9L8LvcylIqHa6aab5eY0Ru9gM6Pse"  # Your actual Client Secret
+CLIENT_ID = "ABisp7RoMbe1i67ajK1qZJE1NXTFPBsk51IQDaSBr9MWFJn5mW"  # Your NEW Client ID
+CLIENT_SECRET = "nf6zWDJQsKYdty9BvVVCfxpE4gGxvyHToYlWzEkU"  # Your NEW Client Secret
 REDIRECT_URI = "http://localhost:8000/callback"  # TODO: Replace with production redirect URI later
 AUTH_BASE_URL = "https://appcenter.intuit.com/connect/oauth2"
 TOKEN_URL = "https://oauth.platform.intuit.com/oauth2/v1/tokens/bearer"

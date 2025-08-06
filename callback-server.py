@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Simple callback server for QuickBooks OAuth
-Listens on port 8000 and handles the OAuth redirect
+Listens on port 3010 and handles the OAuth redirect
 """
 
 from http.server import HTTPServer, BaseHTTPRequestHandler
@@ -59,12 +59,12 @@ class CallbackHandler(BaseHTTPRequestHandler):
         threading.Thread(target=shutdown).start()
 
 def start_callback_server():
-    """Start the callback server on port 8000"""
-    server_address = ('localhost', 8000)
+    """Start the callback server on port 3010"""
+    server_address = ('localhost', 3010)
     httpd = HTTPServer(server_address, CallbackHandler)
     
     print("🚀 Starting QuickBooks OAuth callback server...")
-    print(f"📡 Server listening on: http://localhost:8000")
+    print(f"📡 Server listening on: http://localhost:3010")
     print("⏳ Waiting for QuickBooks OAuth redirect...")
     print("="*50)
     

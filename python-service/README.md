@@ -31,7 +31,7 @@ OPENAI_API_KEY=your_openai_api_key_here
 
 ```bash
 # Development
-uvicorn invoice_parser:app --reload --host 0.0.0.0 --port 8000
+uvicorn invoice_parser:app --reload --host 0.0.0.0 --port 3010
 
 # Production
 python invoice_parser.py
@@ -101,9 +101,9 @@ COPY requirements.txt .
 RUN pip install -r requirements.txt
 
 COPY . .
-EXPOSE 8000
+EXPOSE 3010
 
-CMD ["uvicorn", "invoice_parser:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["uvicorn", "invoice_parser:app", "--host", "0.0.0.0", "--port", "3010"]
 ```
 
 ### AWS App Runner

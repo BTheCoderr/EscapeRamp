@@ -146,7 +146,7 @@ npm run type-check   # Run TypeScript check
 ```bash
 cd python-service
 pip install -r requirements.txt
-uvicorn invoice_parser:app --reload --port 8000
+uvicorn invoice_parser:app --reload --port 3010
 ```
 
 ## 📚 **API Endpoints**

@@ -9,7 +9,7 @@ CLIENT_SECRET = "nf6zWDJQsKYdty9BvVVCfxpE4gGxvyHToYlWzEkU"  # Your Production Cl
 REDIRECT_URI = "https://escaperamp.vercel.app/api/quickbooks/callback"  # Production redirect URI
 AUTH_BASE_URL = "https://appcenter.intuit.com/connect/oauth2"
 TOKEN_URL = "https://oauth.platform.intuit.com/oauth2/v1/tokens/bearer"
-SCOPES = "com.intuit.quickbooks.accounting openid profile email"
+SCOPES = "com.intuit.quickbooks.accounting openid profile email phone address"
 
 
 # === AUTH STEP 1: Get user to visit auth URL ===

@@ -6,7 +6,7 @@ from urllib.parse import urlencode
 # === CONFIG (PRODUCTION MODE) ===
 CLIENT_ID = "ABisp7RoMbe1i67ajK1qZJE1NXTFPBsk51IQDaSBr9MWFJn5mW"  # Your Production Client ID
 CLIENT_SECRET = "nf6zWDJQsKYdty9BvVVCfxpE4gGxvyHToYlWzEkU"  # Your Production Client Secret
-REDIRECT_URI = "https://escaperamp.vercel.app/api/quickbooks/callback"  # Production redirect URI
+REDIRECT_URI = "https://escaperamp.vercel.app/callback"  # Production redirect URI
 AUTH_BASE_URL = "https://appcenter.intuit.com/connect/oauth2"
 TOKEN_URL = "https://oauth.platform.intuit.com/oauth2/v1/tokens/bearer"
 SCOPES = "com.intuit.quickbooks.accounting openid profile email phone address"

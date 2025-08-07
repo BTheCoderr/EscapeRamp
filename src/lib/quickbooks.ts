@@ -13,15 +13,15 @@ const getRedirectUri = () => {
   if (typeof window !== 'undefined') {
     // Client-side: check if we're on localhost
     if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-      return 'http://localhost:3010/api/quickbooks/callback';
+      return 'http://localhost:3010/callback';
     }
   } else {
     // Server-side: check NODE_ENV and also check if we're in a development context
     if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === undefined) {
-      return 'http://localhost:3010/api/quickbooks/callback';
+      return 'http://localhost:3010/callback';
     }
   }
-  return 'https://escaperamp.vercel.app/api/quickbooks/callback';
+  return 'https://escaperamp.vercel.app/callback';
 };
 
 // Create OAuth client with dynamic redirect URI

@@ -14,7 +14,7 @@ In the **Redirect URIs** section, add these **exact** URLs:
 
 ```
 http://localhost:3010/callback
-https://escaperamp.vercel.app/api/quickbooks/callback
+https://escaperamp.vercel.app/callback
 ```
 
 **⚠️ Make sure there are NO trailing slashes and the URLs match exactly!**
@@ -22,7 +22,7 @@ https://escaperamp.vercel.app/api/quickbooks/callback
 ## 📁 Scripts Overview
 
 ### `qb_auth.py` - Production Script
-- Uses: `https://escaperamp.vercel.app/api/quickbooks/callback`
+- Uses: `https://escaperamp.vercel.app/callback`
 - For: Production deployment
 - Saves tokens to: `token.json`
 
@@ -35,7 +35,7 @@ https://escaperamp.vercel.app/api/quickbooks/callback
 
 ### Required Redirect URIs:
 1. `http://localhost:3010/callback` (for local development)
-2. `https://escaperamp.vercel.app/api/quickbooks/callback` (for production)
+2. `https://escaperamp.vercel.app/callback` (for production)
 
 ### App Settings:
 - **Environment**: Production (for live QuickBooks data)
@@ -63,5 +63,5 @@ https://escaperamp.vercel.app/api/quickbooks/callback
 ### Support Ticket Info
 - **Ticket #**: 00190048
 - **App ID**: `ABisp7RoMbe1i67ajK1qZJE1NXTFPBsk51IQDaSBr9MWFJn5mW`
-- **Production Redirect URI**: `https://escaperamp.vercel.app/api/quickbooks/callback`
+- **Production Redirect URI**: `https://escaperamp.vercel.app/callback`
 - **Development Redirect URI**: `http://localhost:3010/callback` 

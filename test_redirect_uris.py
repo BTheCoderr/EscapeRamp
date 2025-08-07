@@ -8,8 +8,7 @@ from urllib.parse import urlencode
 # Test all redirect URIs
 redirect_uris = [
     "http://localhost:3010/callback",
-    "http://localhost:3010/api/quickbooks/callback", 
-    "https://escaperamp.vercel.app/api/quickbooks/callback"
+    "https://escaperamp.vercel.app/callback"
 ]
 
 CLIENT_ID = "ABisp7RoMbe1i67ajK1qZJE1NXTFPBsk51IQDaSBr9MWFJn5mW"

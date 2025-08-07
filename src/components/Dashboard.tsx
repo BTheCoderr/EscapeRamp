@@ -1158,36 +1158,152 @@ export default function Dashboard() {
                 variant="outline" 
                 size="sm"
                 onClick={() => {
-                  // Open help modal or redirect to support
-                  const helpOptions = [
-                    'Chat with AI Assistant',
-                    'Contact Migration Specialist',
-                    'View Documentation',
-                    'Schedule a Call'
-                  ];
+                  // Create a modern modal dialog
+                  const modal = document.createElement('div');
+                  modal.style.cssText = `
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0, 0, 0, 0.5);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    z-index: 1000;
+                  `;
                   
-                  const choice = prompt(`How can we help you?\n\n${helpOptions.map((opt, i) => `${i + 1}. ${opt}`).join('\n')}\n\nEnter a number (1-4):`);
+                  const modalContent = document.createElement('div');
+                  modalContent.style.cssText = `
+                    background: white;
+                    padding: 2rem;
+                    border-radius: 12px;
+                    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+                    max-width: 500px;
+                    width: 90%;
+                    text-align: center;
+                  `;
                   
-                  switch(choice) {
-                    case '1':
-                      // Navigate to AI Assistant
-                      window.location.href = '/?tab=assistant';
-                      break;
-                    case '2':
-                      // Show specialist contact info
-                      alert('Contact Sarah Mitchell:\nEmail: sarah@escaperamp.com\nPhone: +1-800-ESCAPE-RAMP');
-                      break;
-                    case '3':
-                      // Open documentation
-                      window.open('https://docs.escaperamp.com', '_blank');
-                      break;
-                    case '4':
-                      // Schedule call
-                      window.open('https://calendly.com/escaperamp/consultation', '_blank');
-                      break;
-                    default:
-                      alert('Please select a valid option.');
-                  }
+                  modalContent.innerHTML = `
+                    <h2 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem; color: #1f2937;">
+                      How can we help you?
+                    </h2>
+                    <div style="display: grid; gap: 0.75rem; margin-bottom: 1.5rem;">
+                      <button onclick="handleHelpChoice('1')" style="
+                        padding: 0.75rem 1rem;
+                        border: 1px solid #e5e7eb;
+                        border-radius: 8px;
+                        background: white;
+                        cursor: pointer;
+                        transition: all 0.2s;
+                        text-align: left;
+                        display: flex;
+                        align-items: center;
+                        gap: 0.5rem;
+                      " onmouseover="this.style.background='#f9fafb'" onmouseout="this.style.background='white'">
+                        <span style="color: #3b82f6;">🤖</span>
+                        <div>
+                          <div style="font-weight: 500;">Chat with AI Assistant</div>
+                          <div style="font-size: 0.875rem; color: #6b7280;">Get instant help with your migration</div>
+                        </div>
+                      </button>
+                      <button onclick="handleHelpChoice('2')" style="
+                        padding: 0.75rem 1rem;
+                        border: 1px solid #e5e7eb;
+                        border-radius: 8px;
+                        background: white;
+                        cursor: pointer;
+                        transition: all 0.2s;
+                        text-align: left;
+                        display: flex;
+                        align-items: center;
+                        gap: 0.5rem;
+                      " onmouseover="this.style.background='#f9fafb'" onmouseout="this.style.background='white'">
+                        <span style="color: #10b981;">👩‍💼</span>
+                        <div>
+                          <div style="font-weight: 500;">Contact Migration Specialist</div>
+                          <div style="font-size: 0.875rem; color: #6b7280;">Talk to our expert team</div>
+                        </div>
+                      </button>
+                      <button onclick="handleHelpChoice('3')" style="
+                        padding: 0.75rem 1rem;
+                        border: 1px solid #e5e7eb;
+                        border-radius: 8px;
+                        background: white;
+                        cursor: pointer;
+                        transition: all 0.2s;
+                        text-align: left;
+                        display: flex;
+                        align-items: center;
+                        gap: 0.5rem;
+                      " onmouseover="this.style.background='#f9fafb'" onmouseout="this.style.background='white'">
+                        <span style="color: #f59e0b;">📚</span>
+                        <div>
+                          <div style="font-weight: 500;">View Documentation</div>
+                          <div style="font-size: 0.875rem; color: #6b7280;">Browse guides and tutorials</div>
+                        </div>
+                      </button>
+                      <button onclick="handleHelpChoice('4')" style="
+                        padding: 0.75rem 1rem;
+                        border: 1px solid #e5e7eb;
+                        border-radius: 8px;
+                        background: white;
+                        cursor: pointer;
+                        transition: all 0.2s;
+                        text-align: left;
+                        display: flex;
+                        align-items: center;
+                        gap: 0.5rem;
+                      " onmouseover="this.style.background='#f9fafb'" onmouseout="this.style.background='white'">
+                        <span style="color: #8b5cf6;">📅</span>
+                        <div>
+                          <div style="font-weight: 500;">Schedule a Call</div>
+                          <div style="font-size: 0.875rem; color: #6b7280;">Book a consultation session</div>
+                        </div>
+                      </button>
+                    </div>
+                    <button onclick="closeHelpModal()" style="
+                      padding: 0.5rem 1rem;
+                      border: 1px solid #d1d5db;
+                      border-radius: 6px;
+                      background: #f9fafb;
+                      cursor: pointer;
+                      color: #374151;
+                    ">Cancel</button>
+                  `;
+                  
+                  modal.appendChild(modalContent);
+                  document.body.appendChild(modal);
+                  
+                  // Add global functions for the modal
+                  window.handleHelpChoice = (choice) => {
+                    modal.remove();
+                    switch(choice) {
+                      case '1':
+                        setActiveItem('assistant');
+                        break;
+                      case '2':
+                        alert('Contact Sarah Mitchell:\nEmail: sarah@escaperamp.com\nPhone: +1-800-ESCAPE-RAMP');
+                        break;
+                      case '3':
+                        window.open('https://docs.escaperamp.com', '_blank');
+                        break;
+                      case '4':
+                        window.open('https://calendly.com/escaperamp/consultation', '_blank');
+                        break;
+                    }
+                  };
+                  
+                  window.closeHelpModal = () => {
+                    modal.remove();
+                  };
+                  
+                  // Close modal when clicking outside
+                  modal.addEventListener('click', (e) => {
+                    if (e.target === modal) {
+                      modal.remove();
+                    }
+                  });
                 }}
               >
                 Need Help?

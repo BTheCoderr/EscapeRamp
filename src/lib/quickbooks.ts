@@ -21,7 +21,7 @@ const getRedirectUri = () => {
       return 'http://localhost:3010/callback';
     }
   }
-  return 'https://escaperamp.vercel.app/callback';
+  return 'https://escaperamp.vercel.app/api/quickbooks/callback';
 };
 
 // Create OAuth client with dynamic redirect URI

@@ -1276,7 +1276,7 @@ export default function Dashboard() {
                   document.body.appendChild(modal);
                   
                   // Add global functions for the modal
-                  window.handleHelpChoice = (choice) => {
+                  (window as any).handleHelpChoice = (choice: string) => {
                     modal.remove();
                     switch(choice) {
                       case '1':
@@ -1294,7 +1294,7 @@ export default function Dashboard() {
                     }
                   };
                   
-                  window.closeHelpModal = () => {
+                  (window as any).closeHelpModal = () => {
                     modal.remove();
                   };
                   

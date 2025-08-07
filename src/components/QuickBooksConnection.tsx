@@ -35,15 +35,26 @@ export default function QuickBooksConnection() {
   // Check URL parameters for connection status
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
-    const quickbooksStatus = urlParams.get('quickbooks');
-    const realmIdParam = urlParams.get('realmId');
+    const success = urlParams.get('success');
+    const error = urlParams.get('error');
 
-    if (quickbooksStatus === 'connected' && realmIdParam) {
+    if (success === 'quickbooks_connected') {
       setIsConnected(true);
-      setRealmId(realmIdParam);
+      setRealmId('Connected'); // We'll get the actual realm ID from the API
       setError(null);
-    } else if (quickbooksStatus === 'error') {
-      setError('Failed to connect to QuickBooks. Please try again.');
+      
+      // Clear the success parameter from URL
+      const url = new URL(window.location.href);
+      url.searchParams.delete('success');
+      window.history.replaceState({}, '', url.toString());
+    } else if (error) {
+      setError(`QuickBooks connection failed: ${error}`);
+      setIsConnected(false);
+      
+      // Clear the error parameter from URL
+      const url = new URL(window.location.href);
+      url.searchParams.delete('error');
+      window.history.replaceState({}, '', url.toString());
     }
   }, []);
 

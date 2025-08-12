@@ -1,262 +1,241 @@
-# Escape Ramp - QuickBooks Migration Tool
+# Acme Business - Modern Accounting Software
 
-A modern SaaS application helping small businesses migrate off QuickBooks Desktop with AI-powered analysis and guidance.
+A production-ready accounting and bookkeeping application built with Next.js 14, TypeScript, and shadcn/ui. This is a complete UI-only demo showcasing modern web development practices and elegant design patterns inspired by QuickBooks and Xero.
 
 ## 🚀 Features
 
-- **Intelligent Intake Forms**: Collect migration requirements with AI-powered analysis
-- **File Upload & Analysis**: Upload QuickBooks files for automated analysis
-- **AI-Powered Migration Planning**: Generate personalized migration plans using Claude
-- **Progress Tracking**: Real-time migration status and progress monitoring
-- **Modern UI/UX**: Clean, responsive interface built with Next.js and Tailwind CSS
+### Core Functionality
+
+- **Dashboard** - Comprehensive overview with KPIs, charts, and recent activity
+- **Transactions** - Full transaction management with advanced filtering and bulk operations
+- **Invoices** - Customer invoice creation, tracking, and management
+- **Bills** - Vendor bill recording and payment tracking
+- **Banking** - Bank account management and reconciliation workflows
+- **Reports** - Financial reports including P&L, Balance Sheet, and Cash Flow
+- **Contacts** - Customer and vendor relationship management
+- **Chart of Accounts** - Hierarchical account structure management
+- **Settings** - Company configuration, team management, and preferences
+
+### Technical Features
+
+- **Responsive Design** - Mobile-first approach with excellent tablet/desktop layouts
+- **Dark/Light Theme** - System-aware theme switching with persistence
+- **Advanced Tables** - Sortable, filterable data tables with pagination and bulk actions
+- **Interactive Charts** - Real-time financial data visualization with Recharts
+- **Command Palette** - Quick navigation and actions (⌘K)
+- **Accessibility** - WCAG AA compliant with keyboard navigation and screen reader support
+- **Type Safety** - Strict TypeScript with comprehensive type definitions
+- **Mock Data** - Realistic demo data with localStorage persistence
 
 ## 🛠 Tech Stack
 
-### Frontend
-- **Next.js 14** - React framework with App Router
-- **TypeScript** - Type-safe development
-- **Tailwind CSS** - Utility-first CSS framework
-- **Zustand** - Lightweight state management
-- **React Hook Form** - Form handling with validation
-- **Lucide React** - Beautiful icons
+- **Framework**: Next.js 14 (App Router)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **UI Components**: shadcn/ui (Radix primitives)
+- **Icons**: Lucide React
+- **Charts**: Recharts
+- **Forms**: React Hook Form + Zod validation
+- **Tables**: TanStack Table
+- **Date Handling**: date-fns
+- **State Management**: React state + custom repositories
+- **Theme**: next-themes
 
-### Backend
-- **Next.js API Routes** - Serverless API endpoints
-- **Supabase** - PostgreSQL database with real-time features
-- **Zod** - Schema validation
-- **Anthropic Claude** - AI analysis and migration planning
+## 📦 Installation
 
-### Infrastructure
-- **Vercel** - Deployment and hosting
-- **Supabase** - Database and authentication
-- **GitHub Actions** - CI/CD (future)
+1. **Clone and install dependencies**:
 
-## 📋 Prerequisites
+   ```bash
+   git clone <repository-url>
+   cd EscapeRamp
+   npm install
+   ```
 
-- Node.js 18+ 
-- npm or yarn
-- Supabase account
-- Anthropic API key (Claude)
+2. **Run the development server**:
 
-## 🚀 Quick Start
+   ```bash
+   npm run dev
+   ```
 
-### 1. Clone the Repository
+3. **Open in browser**:
+   Navigate to [http://localhost:3000](http://localhost:3000)
 
-```bash
-git clone <repository-url>
-cd escape-ramp
-```
-
-### 2. Install Dependencies
-
-```bash
-npm install
-```
-
-### 3. Environment Setup
-
-Create a `.env.local` file in the root directory:
-
-```env
-# Supabase Configuration
-NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
-SUPABASE_SERVICE_ROLE_KEY=your_supabase_service_role_key
-
-# AI Configuration
-ANTHROPIC_API_KEY=your_anthropic_api_key
-
-# Optional: Stripe for payments
-NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=your_stripe_publishable_key
-STRIPE_SECRET_KEY=your_stripe_secret_key
-```
-
-### 4. Database Setup
-
-1. Create a new Supabase project
-2. Run the SQL schema in `database-schema.sql` in your Supabase SQL editor
-3. Copy your Supabase URL and keys to `.env.local`
-
-### 5. Start Development Server
-
-```bash
-npm run dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) to view the application.
-
-## 📁 Project Structure
+## 🏗 Project Structure
 
 ```
-escape-ramp/
-├── src/
-│   ├── app/                    # Next.js App Router
-│   │   ├── api/               # API routes
-│   │   │   ├── intake/        # Intake form API
-│   │   │   ├── upload/        # File upload API
-│   │   │   └── progress/      # Progress tracking API
-│   │   ├── layout.tsx         # Root layout
-│   │   └── page.tsx           # Main page
-│   ├── components/            # React components
-│   │   ├── IntakeForm.tsx     # Migration intake form
-│   │   ├── FileUpload.tsx     # File upload component
-│   │   ├── ProgressDashboard.tsx # Progress tracking
-│   │   └── Navigation.tsx     # Navigation component
-│   └── lib/                   # Utility libraries
-│       ├── types.ts           # TypeScript types
-│       ├── store.ts           # Zustand store
-│       ├── supabase.ts        # Supabase client
-│       ├── ai-service.ts      # AI service integration
-│       └── utils.ts           # Utility functions
-├── database-schema.sql        # Database schema
-├── package.json
-└── README.md
+src/
+├── app/                    # Next.js App Router pages
+│   ├── (dashboard)/       # Dashboard layout group
+│   │   ├── page.tsx       # Dashboard home
+│   │   ├── transactions/  # Transaction management
+│   │   ├── invoices/      # Invoice management
+│   │   ├── bills/         # Bill management
+│   │   ├── banking/       # Banking & reconciliation
+│   │   ├── reports/       # Financial reports
+│   │   ├── customers/     # Customer management
+│   │   ├── vendors/       # Vendor management
+│   │   ├── chart-of-accounts/ # Chart of accounts
+│   │   └── settings/      # Application settings
+│   ├── layout.tsx         # Root layout
+│   └── globals.css        # Global styles
+├── components/
+│   ├── ui/               # shadcn/ui components
+│   ├── navigation/       # Navigation components
+│   ├── tables/          # Data table components
+│   ├── charts/          # Chart components
+│   └── forms/           # Form components
+├── lib/
+│   ├── mock/            # Mock data and repositories
+│   │   ├── types.ts     # TypeScript interfaces
+│   │   ├── seed.ts      # Data generation
+│   │   ├── repository.ts # Mock API layer
+│   │   ├── currency.ts  # Currency formatting
+│   │   └── format.ts    # Date/text formatting
+│   └── utils.ts         # Utility functions
+└── hooks/               # Custom React hooks
 ```
 
-## 🔧 API Endpoints
+## 🎨 Design System
 
-### POST /api/intake
-Submit migration intake form and trigger AI analysis.
+### Color Palette
 
-**Request Body:**
-```json
-{
-  "current_software": "QuickBooks Desktop Pro",
-  "target_software": "QuickBooks Online",
-  "urgency": "high",
-  "data_preservation_requirements": ["Chart of Accounts", "Customer Records"],
-  "additional_notes": "Need to preserve custom fields",
-  "user_id": "user-uuid"
-}
-```
+- **CSS Variables**: Consistent theming with CSS custom properties
+- **Semantic Colors**: Primary, secondary, accent, muted, destructive
+- **Chart Colors**: Coordinated color scheme for data visualization
 
-### POST /api/upload
-Upload files for migration analysis.
+### Typography
 
-**Request Body:**
-```json
-{
-  "migration_id": "migration-uuid",
-  "filename": "company.qbb",
-  "file_size": 1024000,
-  "file_type": ".qbb",
-  "file_content": "base64-content"
-}
-```
+- **Font**: Inter with tabular numbers for financial data
+- **Scale**: Responsive typography with proper hierarchy
+- **Features**: Tabular numbers, balanced text, tracking adjustments
 
-### GET /api/progress
-Fetch migration progress and status.
+### Components
 
-**Query Parameters:**
-- `migration_id` (optional): Specific migration ID
-- `user_id` (optional): User ID to get all migrations
+- **Consistent Spacing**: 4px grid system
+- **Border Radius**: Soft 10px default radius
+- **Shadows**: Subtle elevation with three levels
+- **Animations**: Smooth transitions with reduced motion support
 
-## 🤖 AI Integration
+## 📊 Mock Data
 
-The application uses Anthropic's Claude for:
+The application includes a comprehensive mock data layer that simulates a real accounting system:
 
-1. **Intake Analysis**: Analyze user requirements and generate summaries
-2. **Migration Planning**: Create detailed migration plans based on requirements
-3. **File Analysis**: Analyze uploaded files for migration implications
+- **Seeded Data**: Realistic business transactions, invoices, bills, and contacts
+- **Relationships**: Proper data relationships between entities
+- **Persistence**: localStorage integration for demo data persistence
+- **Repositories**: Clean API layer for data operations
+- **Reset Functionality**: Ability to reset to fresh demo data
 
-### AI Prompts
+## 🔧 Key Features Deep Dive
 
-The AI service includes carefully crafted prompts for:
-- Intake form analysis
-- Migration plan generation
-- File content analysis
+### Dashboard
 
-## 🎨 UI Components
+- Real-time KPI cards with percentage changes
+- Interactive cash flow chart with period selection
+- Expense breakdown pie chart
+- Recent activity feed with mixed entity types
+- Quick action shortcuts
 
-### IntakeForm
-- Multi-step form for collecting migration requirements
-- Real-time validation with Zod
-- Dynamic form fields based on selections
+### Transaction Management
 
-### FileUpload
-- Drag-and-drop file upload
-- File type validation
-- Progress tracking for uploads
-- AI analysis integration
+- Advanced DataTable with sorting, filtering, and search
+- Bulk operations for categorization and status updates
+- Inline editing capabilities
+- Split transaction support
+- Attachment indicators
 
-### ProgressDashboard
-- Real-time migration status
-- Progress visualization
-- Expandable migration details
-- AI analysis results display
+### Invoicing System
 
-## 🔒 Security Features
+- Complete invoice lifecycle management
+- Status tracking (Draft → Sent → Viewed → Paid → Overdue)
+- Customer relationship integration
+- Payment tracking and partial payments
+- PDF preview simulation
 
-- **Row Level Security (RLS)** in Supabase
-- **Input validation** with Zod schemas
-- **File type validation** for uploads
-- **User isolation** - users can only access their own data
+### Banking & Reconciliation
+
+- Multiple bank account support
+- Transaction reconciliation workflow
+- Balance tracking and discrepancy detection
+- Institution integration simulation
+
+### Reporting Suite
+
+- Profit & Loss statements
+- Balance Sheet reporting
+- Cash Flow analysis
+- Period comparison functionality
+- Export capabilities (simulated)
+
+### Settings & Configuration
+
+- Company profile management
+- Theme and appearance customization
+- Team member management with role-based permissions
+- Tax rate configuration
+- Fiscal year and currency settings
+
+## 🎯 Usage Examples
+
+### Navigation
+
+- Use the sidebar to navigate between major sections
+- Press `⌘K` (or `Ctrl+K`) to open the command palette
+- Click the theme toggle in the top bar to switch themes
+
+### Data Management
+
+- Filter transactions by account, status, or date range
+- Use bulk selection to perform operations on multiple items
+- Search across all text fields in data tables
+- Export data using the export buttons (simulated)
+
+### Creating Records
+
+- Use the "New" button in the top bar for quick record creation
+- Navigate to specific sections for detailed form interfaces
+- All forms include validation and error handling
 
 ## 🚀 Deployment
 
-### Vercel Deployment
+This is a standard Next.js application and can be deployed to any platform supporting Node.js:
 
-1. Connect your GitHub repository to Vercel
-2. Set environment variables in Vercel dashboard
-3. Deploy automatically on push to main branch
-
-### Environment Variables for Production
-
-```env
-NEXT_PUBLIC_SUPABASE_URL=your_production_supabase_url
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your_production_supabase_anon_key
-SUPABASE_SERVICE_ROLE_KEY=your_production_supabase_service_role_key
-ANTHROPIC_API_KEY=your_production_anthropic_api_key
-```
-
-## 🧪 Testing
+### Vercel (Recommended)
 
 ```bash
-# Run tests
-npm test
-
-# Run tests in watch mode
-npm run test:watch
-
-# Run tests with coverage
-npm run test:coverage
+npm run build
 ```
 
-## 📈 Monitoring & Analytics
+Deploy to Vercel with automatic CI/CD integration.
 
-- **Error Tracking**: Sentry integration (future)
-- **Performance Monitoring**: Vercel Analytics
-- **User Analytics**: Supabase Analytics
+### Other Platforms
 
-## 🔄 Future Enhancements
-
-- [ ] **Authentication**: Clerk or Supabase Auth integration
-- [ ] **Payments**: Stripe integration for paid plans
-- [ ] **Real-time Updates**: WebSocket integration
-- [ ] **Advanced AI**: More sophisticated migration analysis
-- [ ] **Export Features**: Migration plan export
-- [ ] **Team Collaboration**: Multi-user support
-- [ ] **API Documentation**: OpenAPI/Swagger docs
+- **Netlify**: Build command `npm run build`, publish directory `.next`
+- **Railway**: Supports Next.js out of the box
+- **DigitalOcean**: App Platform with Node.js buildpack
 
 ## 🤝 Contributing
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+This is a demo application showcasing modern React/Next.js patterns. Key areas for exploration:
 
-## 📄 License
+1. **Component Architecture**: Study the shadcn/ui integration
+2. **State Management**: Examine the mock repository pattern
+3. **TypeScript Usage**: Review comprehensive type definitions
+4. **Responsive Design**: Analyze mobile-first approach
+5. **Accessibility**: Learn WCAG implementation techniques
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+## 📝 License
 
-## 🆘 Support
-
-For support, email support@escaperamp.com or create an issue in this repository.
+This project is for demonstration purposes. The code structure and patterns can be freely studied and adapted for your own projects.
 
 ## 🙏 Acknowledgments
 
-- [Anthropic](https://anthropic.com/) for Claude AI
-- [Supabase](https://supabase.com/) for the database
-- [Vercel](https://vercel.com/) for hosting
-- [Tailwind CSS](https://tailwindcss.com/) for styling
+- **shadcn/ui** for the excellent component system
+- **Radix UI** for accessible primitives
+- **Tailwind CSS** for utility-first styling
+- **Lucide** for beautiful icons
+- **Vercel** for Next.js and deployment platform
+
+---
+
+**Note**: This is a UI-only demonstration. No real financial data is processed, and no external APIs are called. All data is mocked and stored locally for demo purposes.

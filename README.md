@@ -1,5 +1,11 @@
 # Escape Ramp
 
+<!-- repo-intro:start -->
+**Project snapshot:** Escape Ramp is the full SaaS product concept for guiding small businesses through QuickBooks Desktop migration with AI-assisted intake, document handling, progress tracking, and cloud-ready workflows.
+
+**What it demonstrates:** Next.js · TypeScript · Supabase · AI integration · SaaS workflow architecture.
+<!-- repo-intro:end -->
+
 A modern SaaS platform helping small businesses migrate from QuickBooks Desktop to cloud-based solutions.
 
 ## 🚀 **Tech Stack**
